@@ -1,0 +1,36 @@
+package orm
+
+import (
+	"github.com/garyburd/redigo/redis"
+	"reflect"
+)
+
+type orm struct {
+	db redis.Conn
+}
+
+var RedisORM orm
+
+func (*orm) Save() error {
+	val := reflect.ValueOf(model)
+	ind := reflect.Indirect(val)
+	typ := ind.Type()
+
+}
+func (*orm) Add() error {
+
+}
+func (*orm) Del() error {
+
+}
+func (this *orm) Init(ip string, port string) error {
+	var err error
+	this.db, err = redis.Dial("tcp", ip+":"+port)
+	return err
+}
+func (*orm) Getvalue() {
+
+}
+func (*orm) Getmap() {
+
+}

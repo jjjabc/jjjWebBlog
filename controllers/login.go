@@ -1,9 +1,10 @@
 package controllers
 
 import (
+	"strconv"
+
 	"github.com/astaxie/beego"
 	"github.com/garyburd/redigo/redis"
-	"strconv"
 )
 
 type LoginController struct {
