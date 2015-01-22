@@ -2,7 +2,6 @@ package article
 
 import (
 	"errors"
-	"github.com/astaxie/beego"
 	"github.com/garyburd/redigo/redis"
 	"jjjBlog/orm"
 	"strconv"
@@ -27,6 +26,7 @@ func (this *JJJarticle) AddArticle() error {
 	orm.Red.Send("SET", "art:"+strconv.Itoa(jaId)+":title", this.Title)
 	orm.Red.Send("SET", "art:"+strconv.Itoa(jaId)+":text", this.Text)
 	orm.Red.Send("SET", "art:"+strconv.Itoa(jaId)+":img", this.Imgurl)
+	orm.Red.Send("SADD", "art:IdSets", strconv.Itoa(jaId))
 	return orm.Red.Flush()
 }
 
@@ -60,6 +60,7 @@ func (this *JJJarticle) DelArticle() {
 	orm.Red.Send("DEL", "art:"+strconv.Itoa(this.Id)+":title")
 	orm.Red.Send("DEL", "art:"+strconv.Itoa(this.Id)+":text")
 	orm.Red.Send("DEL", "art:"+strconv.Itoa(this.Id)+":img")
+	orm.Red.Send("SREM", "art:IdSets", strconv.Itoa(this.Id))
 	this.UnPublish()
 	return
 }
@@ -81,10 +82,21 @@ func GetArticle(ArticleId int) *JJJarticle {
 	return &ja
 }
 func GetPublishedArticles(pageNum int, number int) ([]JJJarticle, error) {
-
-	all, err := redis.Strings(orm.Red.Do("SMEMBERS", "art:publishedSets"))
+	return getArticles(pageNum, number, true)
+}
+func GetAllArticles() ([]JJJarticle, error) {
+	//2147483647是32位系统中Int的最大值
+	return getArticles(1, 2000000000, false)
+}
+func getArticles(pageNum int, number int, isPublished bool) ([]JJJarticle, error) {
+	var Sets string
+	if isPublished {
+		Sets = "art:publishedSets"
+	} else {
+		Sets = "art:IdSets"
+	}
+	all, err := redis.Strings(orm.Red.Do("SMEMBERS", Sets))
 	if len(all) == 0 {
-		beego.Info("len 0")
 		return make([]JJJarticle, 0), nil
 	}
 	if err != nil {
@@ -95,17 +107,10 @@ func GetPublishedArticles(pageNum int, number int) ([]JJJarticle, error) {
 	last := len(all) - 1
 
 	for i := start; (i < (start + number)) && (i <= last); i++ {
-		beego.Info("range:" + strconv.Itoa(start) + strconv.Itoa(i) + strconv.Itoa(last))
 		aId, _ := strconv.Atoi(all[i])
 		ja := GetArticle(aId)
 		jaSets = append(jaSets, *ja)
 	}
-	beego.Info("jaSets len:" + strconv.Itoa(len(jaSets)))
 	return jaSets, nil
 
-}
-
-func GetAllArticles() ([]JJJarticle, error) {
-	//2147483647是32位系统中Int的最大值
-	return GetPublishedArticles(1, 2147483647)
 }
