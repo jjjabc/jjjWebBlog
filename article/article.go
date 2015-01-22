@@ -2,6 +2,7 @@ package article
 
 import (
 	"errors"
+	"github.com/astaxie/beego"
 	"github.com/garyburd/redigo/redis"
 	"jjjBlog/orm"
 	"strconv"
@@ -18,9 +19,14 @@ type JJJarticle struct {
 }
 
 func (this *JJJarticle) AddArticle() error {
-	orm.Red.Send("SET", "art:"+strconv.Itoa(this.Id)+":title", this.Title)
-	orm.Red.Send("SET", "art:"+strconv.Itoa(this.Id)+":text", this.Text)
-	orm.Red.Send("SET", "art:"+strconv.Itoa(this.Id)+":img", this.Imgurl)
+	jaId, err := redis.Int(orm.Red.Do("INCR", "art:count"))
+	if err != nil {
+		return err
+	}
+	this.Id = jaId
+	orm.Red.Send("SET", "art:"+strconv.Itoa(jaId)+":title", this.Title)
+	orm.Red.Send("SET", "art:"+strconv.Itoa(jaId)+":text", this.Text)
+	orm.Red.Send("SET", "art:"+strconv.Itoa(jaId)+":img", this.Imgurl)
 	return orm.Red.Flush()
 }
 
@@ -74,5 +80,32 @@ func GetArticle(ArticleId int) *JJJarticle {
 	ja.PublishedTime = dbpubtime
 	return &ja
 }
-func GetPublishedArticles()
-func GetAllArticles()
+func GetPublishedArticles(pageNum int, number int) ([]JJJarticle, error) {
+
+	all, err := redis.Strings(orm.Red.Do("SMEMBERS", "art:publishedSets"))
+	if len(all) == 0 {
+		beego.Info("len 0")
+		return make([]JJJarticle, 0), nil
+	}
+	if err != nil {
+		return nil, errors.New("DB error")
+	}
+	jaSets := make([]JJJarticle, 0)
+	start := (pageNum - 1) * number
+	last := len(all) - 1
+
+	for i := start; (i < (start + number)) && (i <= last); i++ {
+		beego.Info("range:" + strconv.Itoa(start) + strconv.Itoa(i) + strconv.Itoa(last))
+		aId, _ := strconv.Atoi(all[i])
+		ja := GetArticle(aId)
+		jaSets = append(jaSets, *ja)
+	}
+	beego.Info("jaSets len:" + strconv.Itoa(len(jaSets)))
+	return jaSets, nil
+
+}
+
+func GetAllArticles() ([]JJJarticle, error) {
+	//2147483647是32位系统中Int的最大值
+	return GetPublishedArticles(1, 2147483647)
+}
