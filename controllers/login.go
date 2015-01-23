@@ -1,10 +1,8 @@
 package controllers
 
 import (
-	"strconv"
-
 	"github.com/astaxie/beego"
-	"github.com/garyburd/redigo/redis"
+	"jjjBlog/user"
 )
 
 type LoginController struct {
@@ -19,17 +17,13 @@ func (this *LoginController) Post() {
 	username := this.GetString("username")
 	password := this.GetString("password")
 	beego.Info(username + ":" + password)
-	red, _ := redis.Dial("tcp", "127.0.0.1:6379")
-	defer red.Close()
-	uid, err := redis.Int(red.Do("GET", "account:uname:"+username))
-	beego.Info(uid)
-	if err != nil {
-		this.Ctx.Redirect(302, "./login")
+	if user.CheckUser(username, password) {
+		this.SetSession("username", username)
+		this.Ctx.WriteString("成功")
 		return
-	} else if pwd, _ := redis.String(red.Do("GET", "account:password:"+strconv.Itoa(uid))); pwd != password {
-		this.Ctx.Redirect(302, "./login")
+	} else {
+		this.Ctx.WriteString("错误")
 		return
 	}
-	this.SetSession("username", username)
-	this.Ctx.Redirect(302, "./chat")
+
 }

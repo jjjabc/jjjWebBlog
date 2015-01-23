@@ -9,6 +9,8 @@ import (
 func main() {
 	if err := orm.Init("127.0.0.1", "6379"); err != nil {
 		beego.Info("orm init error:")
+		return
 	}
+	beego.SessionOn = true
 	beego.Run()
 }

@@ -13,11 +13,31 @@ type JJJuser struct {
 	NickName    string
 }
 
-func SigupUser(ju JJJuser) error {
-	orm.Red.Send("SET", "account:uname:"+ju.Name, ju.Id)
-	orm.Red.Send("SET", "account:nickname:"+strconv.Itoa(ju.Id), ju.NickName)
-	orm.Red.Send("SET", "account:des:"+strconv.Itoa(ju.Id), ju.Description)
+func (ju *JJJuser) SigupUser(pwd string) error {
+	//判断用户名是否存在
+	if _, err := GetUid(ju.Name); err.Error() != "redigo: nil returned" {
+		return err
+	}
+	uid, err := generateUid()
+	if err != nil {
+		return err
+	}
+	orm.Red.Send("SET", "account:uname:"+ju.Name, strconv.Itoa(uid))
+	orm.Red.Send("SET", "account:nickname:"+strconv.Itoa(uid), ju.NickName)
+	orm.Red.Send("SET", "account:des:"+strconv.Itoa(uid), ju.Description)
+	orm.Red.Send("SADD", "account:UidSets", strconv.Itoa(uid))
+	if err := savePassword(uid, pwd); err != nil {
+		return err
+	}
 	return orm.Red.Flush()
+}
+func (this *JJJuser) Reflush() bool {
+	ju := GetUser(this.Id)
+	if ju != nil {
+		this = ju
+		return true
+	}
+	return false
 }
 func GetUser(uid int) *JJJuser {
 	ju := JJJuser{
@@ -32,7 +52,7 @@ func GetUser(uid int) *JJJuser {
 	return &ju
 }
 
-func GenerateUid() (int, error) {
+func generateUid() (int, error) {
 	return redis.Int(orm.Red.Do("INCR", "account:count"))
 }
 
@@ -45,18 +65,22 @@ func CheckUser(username string, password string) bool {
 	if err != nil {
 		return false
 	}
-	dbpwd, err := getPassword(uid)
+	dbPwdHa, err := getPasswordHash(uid)
 	if err != nil {
 		return false
 	}
-	if dbpwd != password {
+	if dbPwdHa != passwordHash(password) {
 		return false
 	}
 	return true
 }
-func getPassword(uid int) (string, error) {
+func getPasswordHash(uid int) (string, error) {
 	return redis.String(orm.Red.Do("GET", "account:password:"+strconv.Itoa(uid)))
 }
 func passwordHash(pwd string) string {
 	return pwd
+}
+func savePassword(uid int, pwd string) error {
+	_, err := orm.Red.Do("SET", "account:password:"+strconv.Itoa(uid), passwordHash(pwd))
+	return err
 }

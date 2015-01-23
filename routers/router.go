@@ -10,4 +10,6 @@ func init() {
 	beego.Router("/admin", &controllers.AdminController{})
 	beego.Router("/list", &controllers.ListController{})
 	beego.Router("/addart", &controllers.AddartController{})
+	beego.Router("/signup", &controllers.SignupController{})
+	beego.Router("/login", &controllers.LoginController{})
 }
