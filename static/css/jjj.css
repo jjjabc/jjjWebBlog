@@ -14,10 +14,9 @@ html {
 
 #imgdiv {
 	width: 100%;
-	background-image: url(../img/bg.jpg);
+	background-image: url(../img/bg_min.jpg);
 	background-repeat: no-repeat;
-	background-size:cover;
-	
+	background-size: cover;
 }
 #headdiv {
 	height: 100px;
@@ -25,12 +24,41 @@ html {
 #briefdiv {
 	padding-left: 50px;
 	padding-bottom: 30px;
-
 	font-family: SYHT, 'Microsoft Yahei', 微软雅黑, Arial, Helvetica, sans-serif;
 	color: rgb(250, 250, 250);
-	width: 600px;
+	width: 50%;
 }
 
 #textdiv {
 	font-size: 24px;
+}
+
+#contdiv {
+	clear: both;
+	height: 240px;
+	position: relative;
+}
+#floater {
+	float: left;
+	height: 50%;
+	margin-bottom: -120px;
+}
+#Sbriefdiv {
+	font-family: SYHT, 'Microsoft Yahei', 微软雅黑, Arial, Helvetica, sans-serif;
+	color: rgb(250, 250, 250);
+}
+#Stitlediv {
+
+}
+#Stxtdiv {
+	font-family: SYHT, 'Microsoft Yahei', 微软雅黑, Arial, Helvetica, sans-serif;
+	color: rgb(250, 250, 250);
+}
+#Stextdiv {
+	width: 100%;
+	position: relative;
+	top:-25px
+}
+#Stxtdiv {
+	background-color: #000000;
 }

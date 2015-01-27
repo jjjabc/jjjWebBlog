@@ -5,6 +5,7 @@
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 		<link href="css/jjj.css" rel="stylesheet" type="text/css">
 		<script src="js/jquery-1.11.2.js"></script>
+		<script src="js/index.js"></script>
 		<script>
 			$(document).ready(function() {
 				imgresize();
@@ -14,20 +15,18 @@
 				});
 			});
 			function imgresize() {
-				if ($(window).width() > 1200) {
-					$("#imgdiv").css("background-image", "url(img/bg.jpg)");
-					$("#imgdiv").css("height", $("#imgdiv").width() * "0.4055" + "px");
+				if ($(window).width() > 1600) {
+					winLag();
+				} else if ($(window).width() > 1200) {
+					winMax();
 				} else if ($(window).width() > 1000) {
-					$("#imgdiv").css("background-image", "url(img/bg_m.jpg)");
-					$("#imgdiv").css("height", $("#imgdiv").width() * "0.6043" + "px");
-				}else if ($(window).width() > 640){
-					$("#imgdiv").css("background-image", "url(img/bg_s.jpg)");
-					$("#imgdiv").css("height", $("#imgdiv").width() + "px");
-				}else{
-					$("#imgdiv").css("background-image", "url(img/bg_min.jpg)");
-					$("#imgdiv").css("height", $("#imgdiv").width() * "0.4055" + "px");
+					winMid();
+				} else if ($(window).width() > 640) {
+					winSmall();
+				} else {
+					winMin();
 				}
-
+				resizefun();
 			}
 		</script>
 		<title>Wicwin.com</title>
@@ -38,13 +37,30 @@
 			<div id="menudiv"></div>
 		</div>
 		<div id="imgdiv">
-			<div id="briefdiv">
-				<div id="titlediv">
-					<h1>智信创赢</h1>
+			<div id="contdiv">
+				<div id="briefdiv">
+					<div id="titlediv">
+						智信创赢
+						<br>
+						<br>
+
+					</div>
+					<div id="textdiv">
+						成都智信创赢科技有限公司是专门从事管理信息系统研发、咨询及服务的高新技术企业，由富有创新力且在企业信息化经验丰富的智慧型高效能团队组成。团队成员均从事企业信息化多年，在企业信息化咨询与设计方面卓有成效。公司秉承“智慧、诚信、创新、共赢”核心文化与价值，立志于打造数字化中国、信息化全球的信息咨询、设计、服务提供商。
+					</div>
 				</div>
-				<div id="textdiv">
-					成都智信创赢科技有限公司是专门从事管理信息系统研发、咨询及服务的高新技术企业，由富有创新力且在企业信息化经验丰富的智慧型高效能团队组成。团队成员均从事企业信息化多年，在企业信息化咨询与设计方面卓有成效。公司秉承“智慧、诚信、创新、共赢”核心文化与价值，立志于打造数字化中国、信息化全球的信息咨询、设计、服务提供商。
+
+			</div>
+			<div id="Sbriefdiv" >
+				<div id="Stitlediv">
+					智信创赢
 				</div>
+
+			</div>
+		</div>
+		<div id="Stxtdiv">
+			<div id="Stextdiv">
+				成都智信创赢科技有限公司是专门从事管理信息系统研发、咨询及服务的高新技术企业，由富有创新力且在企业信息化经验丰富的智慧型高效能团队组成。团队成员均从事企业信息化多年，在企业信息化咨询与设计方面卓有成效。公司秉承“智慧、诚信、创新、共赢”核心文化与价值，立志于打造数字化中国、信息化全球的信息咨询、设计、服务提供商。
 			</div>
 		</div>
 	</body>
