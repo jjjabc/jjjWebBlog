@@ -4,7 +4,7 @@ function winMin() {
 	$("#Sbriefdiv").show();
 	$("#Stxtdiv").show();
 	$("#contdiv").hide();
-		$("#mobile").show();
+	$("#mobile").show();
 	$("#headdiv").hide();
 	$("#Stitlediv").css("font-size", $("#imgdiv").height() * "0.3" + "px");
 	$("#Stitlediv").css("padding-left", (($("#imgdiv").width() * 0.05) - 5) + "px");
@@ -12,6 +12,9 @@ function winMin() {
 	$("#Stxtdiv").css("padding-left", (($("#imgdiv").width() * 0.05) - 5) + "px");
 	$("#Slogomenudiv").css("margin-left", $("#Stxtdiv").css("padding-left"));
 	$("#Slogomenudiv").css("margin-right", $("#Stxtdiv").css("padding-left"));
+	$("#contIn").css("margin-right", $("#Stxtdiv").css("padding-left"));
+	$("#contIn").css("margin-left", $("#Stxtdiv").css("padding-left"));
+	$("#listTitle").css("font-size", $("#textdiv").css("font-size"));
 }
 
 function winSmall() {
@@ -58,6 +61,7 @@ function winLag() {
 
 function resizefun() {
 	$("#contdiv").css("padding-top", ($("#imgdiv").height() - $("#briefdiv").height()) / 2 + "px");
+
 }
 
 function notSmall() {
@@ -68,4 +72,8 @@ function notSmall() {
 	$("#contdiv").show();
 	$("#headdiv").css("margin-left", $("#briefdiv").css("padding-left"));
 	$("#headdiv").css("margin-right", $("#briefdiv").css("padding-left"));
+	$("#contIn").css("margin-right", $("#briefdiv").css("padding-left"));
+	$("#contIn").css("margin-left", $("#briefdiv").css("padding-left"));
+	$("#listTitle").css("font-size", $("#textdiv").css("font-size"));
 }
+
