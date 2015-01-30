@@ -3,6 +3,7 @@ body {
 	padding: 0px;
 	height: 100%;
 	width: 100%;
+	font-family: 'SYHT', 'Microsoft Yahei', '微软雅黑', Arial, Helvetica, sans-serif;
 }
 html {
 	font-size: 100%;
@@ -11,7 +12,9 @@ html {
 	-ms-text-size-adjust: 100%;
 	height: 100%;
 }
-
+a {
+	text-decoration: none;
+}
 #imgdiv {
 	width: 100%;
 	background-image: url(../img/bg_min.jpg);
@@ -19,12 +22,12 @@ html {
 	background-size: cover;
 }
 #headdiv {
-	height: 100px;
+
 }
 #briefdiv {
 	padding-left: 50px;
 	padding-bottom: 30px;
-	font-family: SYHT, 'Microsoft Yahei', 微软雅黑, Arial, Helvetica, sans-serif;
+	font-family: 'SYHT', 'Microsoft Yahei', '微软雅黑', Arial, Helvetica, sans-serif;
 	color: rgb(250, 250, 250);
 	width: 50%;
 }
@@ -44,21 +47,49 @@ html {
 	margin-bottom: -120px;
 }
 #Sbriefdiv {
-	font-family: SYHT, 'Microsoft Yahei', 微软雅黑, Arial, Helvetica, sans-serif;
+	font-family: 'SYHT', 'Microsoft Yahei', '微软雅黑', Arial, Helvetica, sans-serif;
 	color: rgb(250, 250, 250);
 }
 #Stitlediv {
 
 }
 #Stxtdiv {
-	font-family: SYHT, 'Microsoft Yahei', 微软雅黑, Arial, Helvetica, sans-serif;
 	color: rgb(250, 250, 250);
 }
 #Stextdiv {
 	width: 100%;
 	position: relative;
-	top:-25px
+	top: -25px;
+	font-size: 22px;
 }
 #Stxtdiv {
 	background-color: #000000;
+}
+#headdiv {
+
+}
+#menudiv {
+	position: relative;
+	font-size: 18px;
+	padding-bottom: 10px;
+}
+#logodiv {
+	padding-top: 10px;
+	padding-bottom: 10px;
+}
+.menuA {
+	display: inline-block;
+	margin-right: 50px;
+}
+.menuA:link {
+	color: #000000;
+	font-weight: bold;
+}
+.Smenu {
+	background-color: #FF7F00;
+	color: #ffffff;
+	margin-top: 1px;
+	padding-left: 15px;
+	padding-top: 5px;
+	padding-bottom: 5px;
 }
