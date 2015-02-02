@@ -1,0 +1,100 @@
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+		<style type="text/css">
+			.buttonDiv {
+				display: inline-block;
+				float: right;
+			}
+			.titleDiv {
+				display: inline-block;
+			}
+		</style>
+		<script src="static/js/jquery-1.11.2.js"></script>
+
+		<script>
+			function refList() {
+			$.get("/artList", function(result) {
+			$(allList).html(result);
+			});
+			}
+			
+			function checkReturn(result){
+				if(restult!="OK"){
+					
+				}else{
+					refList();
+				}
+			}
+
+			function publish(artId) {
+			$.post("/publishArt", artId, checkReturn(data));
+			}
+
+
+			function editart (artId) {
+			$("editTextarea").html($("artId"+artId).html());
+			$("editTitle").html($("artId"+artId).html());
+			}
+			
+			function del (artId) {
+				$.post("/delArt",artId,checkReturn(data));
+			  
+			}
+
+
+
+		</script>
+	</head>
+	<body>
+		<div>
+			<div>
+				<div>
+					文章列表
+				</div>
+
+				<div id="allList">
+					<div>
+						<div style="border-bottom: 3px solid;">
+							<div class="titleDiv">
+								title
+							</div>
+							<div class="buttonDiv">
+								<input type="button" value="发布" onclick="publish('jas.Id')"/>
+								<input type="button" value="编辑" onclick="edit('jas.Id')"/>
+								<input type="button" value="删除" onclick="del('jas.Id')"/>
+							</div>
+						</div>
+						<div style="padding-left: 25px;">
+							context
+						</div>
+					</div>
+				</div>
+
+			</div>
+			<div style="border: 1px solid;">
+				<div>
+					新增加文章
+				</div>
+				<div>
+					标题：
+					<input type="text" />
+					<br>
+					<div>
+						内容：
+					</div>
+					<textarea rows="5"></textarea>
+				</div>
+				<div>
+					<input type="checkbox" name="isPublish" />
+					提交并发布
+				</div>
+				<div>
+					<input type="button" value="提交" />
+				</div>
+			</div>
+		</div>
+	</body>
+
+</html>
