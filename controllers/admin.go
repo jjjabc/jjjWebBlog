@@ -9,7 +9,6 @@ type AdminController struct {
 }
 
 func (c *AdminController) Get() {
-	c.Data["Website"] = "beego.me"
-	c.Data["Email"] = "astaxie@gmail.com"
-	c.TplNames = "index.tpl"
+
+	c.TplNames = "admin.tpl"
 }

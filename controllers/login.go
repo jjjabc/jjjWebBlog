@@ -19,10 +19,11 @@ func (this *LoginController) Post() {
 	beego.Info(username + ":" + password)
 	if user.CheckUser(username, password) {
 		this.SetSession("username", username)
-		this.Ctx.WriteString("成功")
+		this.Ctx.Redirect(302, "/admin")
+
 		return
 	} else {
-		this.Ctx.WriteString("错误")
+		this.Ctx.WriteString("登陆错误")
 		return
 	}
 

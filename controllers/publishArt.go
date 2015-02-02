@@ -18,12 +18,15 @@ func (this *PublishArtController) Post() {
 	}
 	artId, _ := strconv.Atoi(this.GetString("artId"))
 	ja := article.GetArticle(artId)
+	var err error
 	if this.GetString("Action") == "publish" {
+		err = ja.Publish()
+	} else {
+		err = ja.UnPublish()
 	}
-	if err := ja.Publish(); err != nil {
-		beego.Info("publish error")
-		this.Ctx.WriteString("Pubilsh article error!")
-
+	if err != nil {
+		beego.Info("publish/unpublish error")
+		this.Ctx.WriteString("Pubilsh/Unpublish article error!")
 	} else {
 		this.Ctx.WriteString("OK")
 	}

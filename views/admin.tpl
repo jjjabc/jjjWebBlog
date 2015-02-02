@@ -25,8 +25,8 @@
 			}
 
 			function checkReturn(result) {
-				if (restult != "OK") {
-
+				if (result != "OK") {
+					$(allList).html(result);
 				} else {
 					refList();
 				}
@@ -36,7 +36,7 @@
 				$.post("/publishArt", {
 					artId : artId,
 					Action : publish
-				}, checkReturn(data));
+				}, checkReturn());
 			}
 
 			function editart(artId) {
@@ -45,7 +45,7 @@
 			}
 
 			function del(artId) {
-				$.post("/delArt", artId, checkReturn(data));
+				$.post("/delArt", artId, checkReturn());
 
 			}
 
@@ -55,7 +55,7 @@
 					text : $("text").text(),
 					ispublish : $("action").checked
 				};
-				$.post("/addArt", ja, checkReturn(data));
+				$.post("/addArt", ja, checkReturn());
 			}
 
 		</script>
@@ -91,7 +91,7 @@
 					提交并发布
 				</div>
 				<div>
-					<input type="button" value="提交" />
+					<input type="button" value="提交" onclick="addart();"/>
 				</div>
 			</div>
 		</div>

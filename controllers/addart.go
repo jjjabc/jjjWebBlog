@@ -3,22 +3,30 @@ package controllers
 import (
 	"github.com/astaxie/beego"
 	"jjjBlog/article"
+	"strconv"
 )
 
 type AddartController struct {
 	beego.Controller
 }
 
-func (c *AddartController) Get() {
-	ja := article.JJJarticle{
-		Title: "hello",
-		Text:  "world!",
+func (this *AddartController) Post() {
+	v := this.GetSession("username")
+	if v == nil {
+		this.Ctx.WriteString("Not login！")
+		return
 	}
+	ja := article.JJJarticle{}
+	ja.Title = this.GetString("title")
+	ja.Text = this.GetString("text")
+	ja.IsPublished, _ = strconv.ParseBool(this.GetString("ispublish"))
 	if err := ja.AddArticle(); err != nil {
 		beego.Info("add error")
+		this.Ctx.WriteString("add error")
 	}
 	if err := ja.Publish(); err != nil {
 		beego.Info("publish error")
+		this.Ctx.WriteString("publish error")
 	}
-	c.Ctx.Redirect(302, "/list")
+	this.Ctx.WriteString("OK")
 }

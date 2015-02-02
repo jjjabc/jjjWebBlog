@@ -56,13 +56,23 @@ func (this *JJJarticle) UnPublish() error {
 	_, err := orm.Red.Do("SREM", "art:publishedSets", strconv.Itoa(this.Id))
 	return err
 }
-func (this *JJJarticle) DelArticle() {
+func (this *JJJarticle) DelArticle() error {
 	orm.Red.Send("DEL", "art:"+strconv.Itoa(this.Id)+":title")
 	orm.Red.Send("DEL", "art:"+strconv.Itoa(this.Id)+":text")
 	orm.Red.Send("DEL", "art:"+strconv.Itoa(this.Id)+":img")
 	orm.Red.Send("SREM", "art:IdSets", strconv.Itoa(this.Id))
-	this.UnPublish()
-	return
+	if err := orm.Red.Flush(); err != nil {
+		return err
+	}
+
+	return this.UnPublish()
+}
+func (this *JJJarticle) UpdataArticle() error {
+	jaId := this.Id
+	orm.Red.Send("SET", "art:"+strconv.Itoa(jaId)+":title", this.Title)
+	orm.Red.Send("SET", "art:"+strconv.Itoa(jaId)+":text", this.Text)
+	orm.Red.Send("SET", "art:"+strconv.Itoa(jaId)+":img", this.Imgurl)
+	return orm.Red.Flush()
 }
 func GetArticle(ArticleId int) *JJJarticle {
 	ja := JJJarticle{
