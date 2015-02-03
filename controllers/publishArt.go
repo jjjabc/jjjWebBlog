@@ -16,9 +16,14 @@ func (this *PublishArtController) Post() {
 		this.Ctx.WriteString("Not login！")
 		return
 	}
-	artId, _ := strconv.Atoi(this.GetString("artId"))
+	artId, err := strconv.Atoi(this.GetString("artId"))
+	if err != nil {
+		this.Ctx.WriteString("Get artId=" + this.GetString("artId") + " error:" + err.Error())
+	}
 	ja := article.GetArticle(artId)
-	var err error
+	if ja == nil {
+		this.Ctx.WriteString("Get artcle error")
+	}
 	if this.GetString("Action") == "publish" {
 		err = ja.Publish()
 	} else {
@@ -26,7 +31,7 @@ func (this *PublishArtController) Post() {
 	}
 	if err != nil {
 		beego.Info("publish/unpublish error")
-		this.Ctx.WriteString("Pubilsh/Unpublish article error!")
+		this.Ctx.WriteString("Pubilsh/Unpublish article error:" + err.Error())
 	} else {
 		this.Ctx.WriteString("OK")
 	}

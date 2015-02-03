@@ -24,9 +24,11 @@ func (this *AddartController) Post() {
 		beego.Info("add error")
 		this.Ctx.WriteString("add error")
 	}
-	if err := ja.Publish(); err != nil {
-		beego.Info("publish error")
-		this.Ctx.WriteString("publish error")
+	if ja.IsPublished {
+		if err := ja.Publish(); err != nil {
+			beego.Info("publish error")
+			this.Ctx.WriteString("publish error")
+		}
 	}
 	this.Ctx.WriteString("OK")
 }

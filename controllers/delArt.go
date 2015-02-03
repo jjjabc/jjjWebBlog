@@ -16,8 +16,16 @@ func (this *DelArtController) Post() {
 		this.Ctx.WriteString("Not login！")
 		return
 	}
-	artId, _ := strconv.Atoi(this.GetString("artId"))
+	artId, err := strconv.Atoi(this.GetString("artId"))
+	if err != nil {
+		this.Ctx.WriteString(err.Error())
+	}
 	ja := article.GetArticle(artId)
+	if ja == nil {
+		beego.Info("get err")
+		this.Ctx.WriteString("Getarticle error" + strconv.Itoa(artId))
+		return
+	}
 	ja.DelArticle()
 	this.Ctx.WriteString("OK")
 	return

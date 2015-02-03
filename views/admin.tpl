@@ -20,13 +20,13 @@
 
 			function refList() {
 				$.get("/artList", function(result) {
-					$(allList).html(result);
+					$("#allList").html(result);
 				});
 			}
 
 			function checkReturn(result) {
 				if (result != "OK") {
-					$(allList).html(result);
+					$("#allList").html(result);
 				} else {
 					refList();
 				}
@@ -36,26 +36,26 @@
 				$.post("/publishArt", {
 					artId : artId,
 					Action : publish
-				}, checkReturn());
+				}, checkReturn);
 			}
 
 			function editart(artId) {
-				$("editTextarea").html($("artId" + artId).html());
-				$("editTitle").html($("artId" + artId).html());
+				$("#editTextarea").html($("artId" + artId).html());
+				$("#editTitle").html($("artId" + artId).html());
 			}
 
 			function del(artId) {
-				$.post("/delArt", artId, checkReturn());
+				$.post("/delArt", {artId:artId}, checkReturn);
 
 			}
 
 			function addart() {
 				ja = {
-					title : $("title").text(),
-					text : $("text").text(),
-					ispublish : $("action").checked
+					title : $("#arttitle").val(),
+					text : $("#arttext").val(),
+					ispublish : $("#artaction").val()
 				};
-				$.post("/addArt", ja, checkReturn());
+				$.post("/addArt", ja, checkReturn);
 			}
 
 		</script>
@@ -79,15 +79,15 @@
 				</div>
 				<div>
 					标题：
-					<input id="title" type="text" />
+					<input id="arttitle" type="text" />
 					<br>
 					<div>
 						内容：
 					</div>
-					<textarea id="text" rows="5"></textarea>
+					<textarea id="arttext" rows="5"></textarea>
 				</div>
 				<div>
-					<input type="checkbox" id="action" />
+					<input type="checkbox" id="artaction" />
 					提交并发布
 				</div>
 				<div>
@@ -96,5 +96,4 @@
 			</div>
 		</div>
 	</body>
-
 </html>
