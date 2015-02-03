@@ -17,7 +17,7 @@ a {
 }
 #imgdiv {
 	width: 100%;
-	background-image: url(../img/bg_min.jpg);
+	background-image: url(static/img/bg_min.jpg);
 	background-repeat: no-repeat;
 	background-size: cover;
 }

@@ -1,5 +1,5 @@
 function winMin() {
-	$("#imgdiv").css("background-image", "url(img/bg_min.jpg)");
+	$("#imgdiv").css("background-image", "url(static/img/bg_min.jpg)");
 	$("#imgdiv").css("height", $("#imgdiv").width() * "0.6043" + "px");
 	$("#Sbriefdiv").show();
 	$("#Stxtdiv").show();
@@ -18,7 +18,7 @@ function winMin() {
 }
 
 function winSmall() {
-	$("#imgdiv").css("background-image", "url(img/bg_s.jpg)");
+	$("#imgdiv").css("background-image", "url(static/img/bg_s.jpg)");
 	$("#imgdiv").css("height", $("#imgdiv").width() + "px");
 
 	$("#textdiv").css("font-size", $("#imgdiv").width() * "0.03" + "px");
@@ -29,7 +29,7 @@ function winSmall() {
 }
 
 function winMid() {
-	$("#imgdiv").css("background-image", "url(img/bg_m.jpg)");
+	$("#imgdiv").css("background-image", "url(static/img/bg_m.jpg)");
 	$("#imgdiv").css("height", $("#imgdiv").width() * "0.5409" + "px");
 
 	$("#textdiv").css("font-size", $("#imgdiv").width() * "0.02" + "px");
@@ -40,7 +40,7 @@ function winMid() {
 }
 
 function winMax() {
-	$("#imgdiv").css("background-image", "url(img/bg.jpg)");
+	$("#imgdiv").css("background-image", "url(static/img/bg.jpg)");
 	$("#imgdiv").css("height", $("#imgdiv").width() * "0.4055" + "px");
 	$("#textdiv").css("font-size", $("#imgdiv").width() * "0.02" + "px");
 	$("#titlediv").css("font-size", $("#imgdiv").width() * "0.04" + "px");
@@ -50,7 +50,7 @@ function winMax() {
 }
 
 function winLag() {
-	$("#imgdiv").css("background-image", "url(img/bg.jpg)");
+	$("#imgdiv").css("background-image", "url(static/img/bg.jpg)");
 	$("#imgdiv").css("height", $("#imgdiv").width() * "0.4055" + "px");
 	$("#textdiv").css("font-size", "32px");
 	$("#contdiv").css("margin", "0 auto");
