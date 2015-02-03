@@ -1,9 +1,7 @@
 {{range $key, $ja := .jas}}					
 					<div>
 						<div style="border-bottom: 3px solid;">
-							<div class="titleDiv">
-								{{$ja.Title}}
-							</div>
+							<div id="title{{$ja.Id}}" class="titleDiv">{{$ja.Title}}</div>
 							<div class="buttonDiv">
 								{{if $ja.IsPublished}}
 								<input type="button" value="取消发布" onclick="publish('{{$ja.Id}}','unpublish')"/>
@@ -14,8 +12,6 @@
 								<input type="button" value="删除" onclick="del('{{$ja.Id}}')"/>
 							</div>
 						</div>
-						<div style="padding-left: 25px;">
-							{{$ja.Text}}
-						</div>
+						<div id="text{{$ja.Id}}" style="padding-left: 25px;">{{$ja.Text}}</div>
 					</div>
 {{end}} 

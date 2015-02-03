@@ -65,9 +65,9 @@
 				<img src="/static/img/logo_b_50.png">
 			</div>
 			<div id="menudiv">
-				<a class="menuA" href="/static/contact_us.html">Home</a>
+				<a class="menuA" href="/">Home</a>
 				<a class="menuA" href="/static/contact_us.html">Conatact us</a>
-				<a class="menuA" href="/static/contact_us.html">Case</a>
+				<a class="menuA" href="#" onclick="$('html,body').animate({scrollTop:$('#cont').offset().top},1000);">Case</a>
 			</div>
 		</div>
 		<div id="mobile">
@@ -86,7 +86,7 @@
 				<div class="Smenu">
 					Conatact us
 				</div>
-				<div class="Smenu">
+				<div class="Smenu" onclick="$('html,body').animate({scrollTop:$('#cont').offset().top},1000);">
 					Case
 				</div>
 			</div>
@@ -130,7 +130,7 @@
 						{{range $key, $val := .jas}}
 						<div id="art{{$val.Id}}" class="art">
 							<div>
-								<div style="padding-bottom: 5px;cursor:pointer;" onclick="expart('artId{{$val.Id}}')">
+								<div style="padding-bottom: 5px;cursor:pointer;" onclick="expart('artId{{$val.Id}}');$('html,body').animate({scrollTop:$('#art{{$val.Id}}').offset().top},500);">
 									<div id="artpuls{{$val.Id}}" style="display: inline-block;width:12px;text-align:center;">
 										+
 									</div>
@@ -145,7 +145,7 @@
 									<div class="t1"></div>
 									<div class="t2"></div>
 								</div>
-								<div>
+								<div style="padding-left:20px;padding-right:20px;font-size:14px;">
 								{{$val.Text}}
 								</div>
 							</div>

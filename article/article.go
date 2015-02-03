@@ -68,6 +68,9 @@ func (this *JJJarticle) DelArticle() error {
 	return this.UnPublish()
 }
 func (this *JJJarticle) UpdataArticle() error {
+	if this.Id == 0 {
+		return errors.New("Id is zero")
+	}
 	jaId := this.Id
 	orm.Red.Send("SET", "art:"+strconv.Itoa(jaId)+":title", this.Title)
 	orm.Red.Send("SET", "art:"+strconv.Itoa(jaId)+":text", this.Text)
