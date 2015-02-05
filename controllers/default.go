@@ -3,7 +3,6 @@ package controllers
 import (
 	"github.com/astaxie/beego"
 	"jjjBlog/article"
-	"strconv"
 )
 
 type MainController struct {
@@ -16,7 +15,7 @@ func (this *MainController) Get() {
 		beego.Info("error!")
 		this.Data["msg"] = "error:" + err.Error()
 	}
-	beego.Info("jas len:" + strconv.Itoa(len(jas)))
+	beego.Info("IP:" + this.Ctx.Request.RemoteAddr + "	Host:" + this.Ctx.Request.Host)
 	this.Data["jas"] = jas
 
 	this.TplNames = "index.tpl"
