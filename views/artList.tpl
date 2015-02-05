@@ -17,12 +17,12 @@
 	<table>
 		<tr>
 			<td style="width:300px;">
-			<div id="imgurl{{$ja.Id}}" style="display:inline;">
+			<div id="imgurl{{$ja.Id}}">
 
 				<img src="{{$ja.Imgurl}}" style="max-width:300px;_width:expression(this.width > 300 ? '300px' : this.width);">
 			</div></td>
 			<td>
-			<div id="text{{$ja.Id}}" style="display:inline-block;padding-left: 25px;display:inline-block;">
+			<div id="text{{$ja.Id}}" style="padding-left: 25px;display:inline-block;">
 				{{$ja.Text}}
 			</div></td>
 		</tr>
