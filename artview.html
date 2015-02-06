@@ -1,0 +1,272 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<link href="static/css/jjj.css" rel="stylesheet" type="text/css">
+		<script src="static/js/jquery-1.11.2.js"></script>
+		<script src="static/js/index.js"></script>
+		<script src="static/js/artview.js"></script>
+		<script>
+			function artimgresize() {
+				if ($(window).width() > 1600) {
+					artwinLag();
+				} else if ($(window).width() > 1200) {
+					artwinMax();
+				} else if ($(window).width() > 1000) {
+					artwinMid();
+				} else if ($(window).width() > 640) {
+					artwinSmall();
+				} else {
+					artwinMin();
+				}
+				resizefun();
+			}
+
+
+			$(document).ready(function() {
+				imgresize();
+				artimgresize();
+				$(window).resize(function() {
+					imgresize();
+					artimgresize();
+				});
+			});
+
+			function imgresize() {
+				if ($(window).width() > 1600) {
+					winLag();
+				} else if ($(window).width() > 1200) {
+					winMax();
+				} else if ($(window).width() > 1000) {
+					winMid();
+				} else if ($(window).width() > 640) {
+					winSmall();
+				} else {
+					winMin();
+				}
+				resizefun();
+			}
+
+		</script>
+		<title>Wicwin.com</title>
+	</head>
+	<body>
+		<div id="headdiv">
+			<div id="logodiv">
+				<img src="static/img/logo_b_50.png">
+			</div>
+			<div id="menudiv">
+				<a class="menuA" href="static/contact_us.html">Home</a>
+				<a class="menuA" href="static/contact_us.html">Conatact us</a>
+				<a class="menuA" href="static/contact_us.html">Case</a>
+			</div>
+		</div>
+		<div id="mobile">
+			<div id="Slogomenudiv"  style="padding-top: 10px;padding-bottom: 10px;">
+				<div id="Slogodiv" style="display: inline-block">
+					<img src="static/img/logo_b_50.png">
+				</div>
+				<div id="Smenudiv" style="display: inline-block;float:right;">
+					<img src="static/img/icon-menu-black.png" onclick="$('#Smenulist').toggle();">
+				</div>
+			</div>
+			<div id="Smenulist" style="display: none;">
+				<div class="Smenu">
+					Home
+				</div>
+				<div class="Smenu">
+					Conatact us
+				</div>
+				<div class="Smenu">
+					Case
+				</div>
+			</div>
+
+		</div>
+
+		<link href="static/css/artview.css" rel="stylesheet" type="text/css">
+		<div id="arttextimg">
+			<div style="background:url('static/img/artbg.jpg') no-repeat center; background-size:cover; background-color:#FFF;text-align:center">
+				<div id="image-text-margin-block iner-content">
+					<div id="text-under-image-block">
+						<div id="image-part">
+
+							<img id="artimage" src="static/img/bg.jpg" id="imagesize">
+							<script>
+								var g = document.getElementById("artimage");
+								g.onload = function() {
+									var bl = this.height / this.width;
+									this.hight = this.width * bl;
+								};
+
+							</script>
+						</div>
+						<div id="main-heading-part">
+							企业资产管理 电力行业解决方案
+						</div>
+					</div>
+					<div id="text-under-content-block">
+						<div id="text-under-content">
+							IBM Maximo 资产运维管理平台，可以帮助资产密集性企业全面管理所有类型的运营资产, 实现对现场设备的运维过程管控。可以利用IBM Maximo共享和实施企业最佳资产运营实践、优化库存、资源和人员配置，最大化资产性能并优化资产投资收益率。
+						</div>
+						<div id="text-under-content">
+							资产管理 - 在整个资产生命周期中，能更高效地跟踪并管理资产和位置数据。
+							<br>
+							工作管理 - 管理计划中和计划外的工作活动，从发起请求到完成并记录实际结果。
+							<br>
+							服务管理 - 定义服务产品、建立服务级别协议 (SLA)、更主动地监控服务级别交付并实施升级过程。
+							<br>
+							合同管理 - 获取对采购、租赁、保修、人员费率、软件、主合同、一揽子及用户定义合同的完整支持。
+							<br>
+							库存管理 - 了解备件及其使用情况的详细信息，包括备件使用时间、使用位置、使用数量以及成本。
+							<br>
+							采购管理 - 支持企业级采购的所有阶段，例如直接采购和库存补给。
+						</div>
+					</div>
+
+					<div id="text-under-all">
+						EAM（Enterprise Asset Management） EAM（Enterprise Asset Management）  EAM（Enterprise Asset Management）  EAM（Enterprise Asset Management）  EAM（Enterprise Asset Management）  EAM（Enterprise Asset Management）  EAM（Enterprise Asset Management）  EAM（Enterprise Asset Management）  EAM（Enterprise Asset Management）  EAM（Enterprise Asset Management）  EAM（Enterprise Asset Management）  EAM（Enterprise Asset Management）  EAM（Enterprise Asset Management）  EAM（Enterprise Asset Management）  EAM（Enterprise Asset Management）
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div id="cont" style="background-color: #E2E2E2">
+			<div id="contIn">
+				<div id="listCont">
+					<div id="listTitle" class="listTitle">
+						产品及案例
+					</div>
+					<div id="artlist">
+
+						<div id="art1" class="art">
+							<div>
+								<div style="padding-bottom: 5px;cursor:pointer;" onclick="expart('artId1')">
+									<div style="display: inline-block;">
+										+
+									</div>
+									<div style="display: inline-block;font-size: 18px">
+										This 's is title!Bbbalal,hoho!
+									</div>
+								</div>
+
+							</div>
+							<div id="artId1" style="display:none;">
+								<div class="artline">
+									<div class="t1"></div>
+									<div class="t2"></div>
+								</div>
+								<div>
+									Windows 10 is the first platform to support holographic computing with APIs that enable gesture and environmental understanding on an untethered device. With Windows 10, holograms are Windows universal apps, and all Windows universal apps work as holograms. Holograms in Windows 10 will lead to entirely new ways for us to communicate, create, and explore.
+
+								</div>
+							</div>
+						</div>
+
+						<div id="art2" class="art">
+							<div>
+								<div style="padding-bottom: 5px;cursor:pointer" onclick="expart('artId2')">
+									<div style="display: inline-block;">
+										+
+									</div>
+									<div style="display: inline-block;">
+										This 's is title!Bbbalal,hoho!
+									</div>
+								</div>
+
+							</div>
+							<div id="artId2" style="display:none;">
+								<div class="artline">
+									<div class="t1"></div>
+									<div class="t2"></div>
+								</div>
+								<div>
+									Windows 10 is the first platform to support holographic computing with APIs that enable gesture and environmental understanding on an untethered device. With Windows 10, holograms are Windows universal apps, and all Windows universal apps work as holograms. Holograms in Windows 10 will lead to entirely new ways for us to communicate, create, and explore.
+
+								</div>
+							</div>
+						</div>
+
+						<div id="art3" class="art">
+							<div>
+								<div style="padding-bottom: 5px;cursor:pointer" onclick="expart('artId3')">
+									<div style="display: inline-block;">
+										+
+									</div>
+									<div style="display: inline-block;">
+										This 's is title!Bbbalal,hoho!
+									</div>
+								</div>
+
+							</div>
+							<div id="artId3" style="display:none;">
+								<div class="artline">
+									<div class="t1"></div>
+									<div class="t2"></div>
+								</div>
+								<div>
+									Windows 10 is the first platform to support holographic computing with APIs that enable gesture and environmental understanding on an untethered device. With Windows 10, holograms are Windows universal apps, and all Windows universal apps work as holograms. Holograms in Windows 10 will lead to entirely new ways for us to communicate, create, and explore.
+
+								</div>
+							</div>
+						</div>
+
+						<div id="art4" class="art">
+							<div>
+								<div style="padding-bottom: 5px;cursor:pointer" onclick="expart('artId4')">
+									<div style="display: inline-block;">
+										+
+									</div>
+									<div style="display: inline-block;">
+										This 's is title!Bbbalal,hoho!
+									</div>
+								</div>
+
+							</div>
+							<div id="artId4" style="display:none;">
+								<div class="artline">
+									<div class="t1"></div>
+									<div class="t2"></div>
+								</div>
+								<div>
+									Windows 10 is the first platform to support holographic computing with APIs that enable gesture and environmental understanding on an untethered device. With Windows 10, holograms are Windows universal apps, and all Windows universal apps work as holograms. Holograms in Windows 10 will lead to entirely new ways for us to communicate, create, and explore.
+
+								</div>
+							</div>
+						</div>
+
+						<div id="art5" class="art">
+							<div>
+								<div style="padding-bottom: 5px;cursor:pointer" onclick="expart('artId5')">
+									<div style="display: inline-block;">
+										+
+									</div>
+									<div style="display: inline-block;">
+										This 's is title!Bbbalal,hoho!
+									</div>
+								</div>
+
+							</div>
+							<div id="artId5" style="display:none;">
+								<div class="artline">
+									<div class="t1"></div>
+									<div class="t2"></div>
+								</div>
+								<div>
+									Windows 10 is the first platform to support holographic computing with APIs that enable gesture and environmental understanding on an untethered device. With Windows 10, holograms are Windows universal apps, and all Windows universal apps work as holograms. Holograms in Windows 10 will lead to entirely new ways for us to communicate, create, and explore.
+
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div id="footdiv">
+			<div id="footcont"><img src="static/img/logoew26.png" style="height: 26px;display: inline-block;float:right;padding-right:80px">
+			</div>
+		</div>
+	</body>
+</html>
+

@@ -1,29 +1,29 @@
-.image-text-content-block {
+#image-text-content-block {
 
 }
-.image-text-margin-block {
-	margin: 0 auto;
+#image-text-margin-block {
+
 }
-.inner-content {
+#inner-content {
 	width: 90% !important;
-	margin: 0 auto !important;
 	max-width: 1360px;
 }
-.text-under-image-block {
-	width: 57%;
+#text-under-image-block {
 	float: left;
 	padding-top: 3.5%;
 }
-.text-under-content-block {
+#text-under-content-block {
 	padding-top: 7%;
-	width: 28%;
 	float: left;
-	margin-left: 5.2%;
 	padding-bottom: 40px;
 }
-.text-under-content {
+#text-under-content {
 
 }
-.main-heading-part {
+#main-heading-part {
 	font-size: 18px;
+}
+#text-under-all {
+	width: 100%;
+	clear: left;
 }

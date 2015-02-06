@@ -1,51 +1,123 @@
-<link href="../static/css/artview.css" rel="stylesheet" type="text/css">
-<div>
-	<div style="background:url('../static/img/artbg.jpg') no-repeat center; background-size:cover; background-color:#FFF;text-align:center">
-		<div class="image-text-margin-block iner-content">
-			<div>
-				<div class="text-under-image-block">
-					<div class="image-part">
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<link href="static/css/jjj.css" rel="stylesheet" type="text/css">
+		<!-- 新 Bootstrap 核心 CSS 文件 -->
+		<link href="static/bootstrap-3.3.2-dist/css/bootstrap.min.css" rel="stylesheet">
 
-						<img id="artimage" src="../static/img/bg.jpg" class="imagesize">
-						<script>
-							var g = document.getElementById("artimage");
-							g.onload = function() {
-								var bl = this.height / this.width;
-								this.width = 500;
-								this.hight = 500 * bl;
-							};
+		<!-- 可选的Bootstrap主题文件（一般不使用） -->
+		<script src="static/bootstrap-3.3.2-dist/css/bootstrap-theme.min.css"></script>
 
-						</script>
-					</div>
-					<div class="main-heading-part">
-						企业资产管理 电力行业解决方案
-					</div>
-				</div>
-				<div class="text-under-content-block">
-					<div class="text-under-content">
-						IBM Maximo 资产运维管理平台，可以帮助资产密集性企业全面管理所有类型的运营资产, 实现对现场设备的运维过程管控。可以利用IBM Maximo共享和实施企业最佳资产运营实践、优化库存、资源和人员配置，最大化资产性能并优化资产投资收益率。
-					</div>
-					<div class="text-under-content">
-						资产管理 - 在整个资产生命周期中，能更高效地跟踪并管理资产和位置数据。
-						<br>
-						工作管理 - 管理计划中和计划外的工作活动，从发起请求到完成并记录实际结果。
-						<br>
-						服务管理 - 定义服务产品、建立服务级别协议 (SLA)、更主动地监控服务级别交付并实施升级过程。
-						<br>
-						合同管理 - 获取对采购、租赁、保修、人员费率、软件、主合同、一揽子及用户定义合同的完整支持。
-						<br>
-						库存管理 - 了解备件及其使用情况的详细信息，包括备件使用时间、使用位置、使用数量以及成本。
-						<br>
-						采购管理 - 支持企业级采购的所有阶段，例如直接采购和库存补给。
-					</div>
-				</div>
-			</div>
+		<!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->
+		<script src="static/js/jquery.min.js"></script>
 
-			<div class="text-under-all">
-				在商业竞争日益激烈的今天，对于拥有高价值资产的企业来说，设备维护已不再局于成本范畴，更成为获取利润的战略工具。 MAXIMO系列产品使这个目标得以实现。
-				EAM（Enterprise Asset Management） 即企业资产维护管理系统, 它是面向资产 密集型 （Asset -intensive） 企业的企业信息化解决方案的总称，其前身称作 CMMS （Computerized Maintenance Management System）计算机维修管理系统， 主要适用于资产密集型企业对高价值固定资产的维护、保养、跟踪等信息管理。它以提高资产可利用率、降低企业运行维护成本为目标。以优化企业维修资源为核心，通过信息化手段，合理安排维修计划及相关资源与活动,从而提高企业的经济效益和企业的市场竞争力。
-				今天，EAM系统涵盖了维护、修理和运营所涉及的方方面面，从库存和采购到工作管理和建立设备模型，但这些仅是EAM系统的基本功能。EAM系统通过创建背后信息来提升维护技术，这些背后的信息在实施EAM之前并不存在，它是加速故障诊断和工作建立的知识基础。优秀的EAM系统的领先性在于其对复杂设备的建模能力，如从公路、管道、线路到产品流程。EAM系统提供任何工厂和服务领域所需的成熟技术，不受设备所处室内外位置的影响。它还通过连接终端用户和最有效的信息源支持简化运营工作，并且这些信息都是在系统中预先设置的。此外，一个端到端的电子商务解决方案可以最大程度降低目标实现的成本。
-			</div>
+		<!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+		<script src="static/bootstrap-3.3.2-dist/js/bootstrap.min.js"></script>
+		<title>Wicwin.com</title>
+	</head>
+	<body>
+		<div class="container-fluid">
+	<div class="row-fluid">
+		<div class="span12">
+			<ul class="breadcrumb">
+				<li>
+					<a href="#">主页</a> <span class="divider">/</span>
+				</li>
+				<li>
+					<a href="#">类目</a> <span class="divider">/</span>
+				</li>
+				<li class="active">
+					主题
+				</li>
+			</ul>
+		</div>
+	</div>
+	<div class="row-fluid">
+		<div class="span7">
+			<img alt="140x140" src="img/a.jpg" />
+			<h3>
+				h3. 这是一套可视化布局系统.
+			</h3>
+		</div>
+		<div class="span5">
+			<p>
+				<em>Git</em>是一个分布式的版本控制系统，最初由<strong>Linus Torvalds</strong>编写，用作Linux内核代码的管理。在推出后，Git在其它项目中也取得了很大成功，尤其是在Ruby社区中。
+			</p>
+			<dl>
+				<dt>
+					Rolex
+				</dt>
+				<dd>
+					劳力士创始人为汉斯.威尔斯多夫，1908年他在瑞士将劳力士注册为商标。
+				</dd>
+				<dt>
+					Vacheron Constantin
+				</dt>
+				<dd>
+					始创于1775年的江诗丹顿已有250年历史，
+				</dd>
+				<dd>
+					是世界上历史最悠久、延续时间最长的名表之一。
+				</dd>
+				<dt>
+					IWC
+				</dt>
+				<dd>
+					创立于1868年的万国表有“机械表专家”之称。
+				</dd>
+				<dt>
+					Cartier
+				</dt>
+				<dd>
+					卡地亚拥有150多年历史，是法国珠宝金银首饰的制造名家。
+				</dd>
+			</dl>
+		</div>
+	</div>
+	<div class="row-fluid">
+		<div class="span12">
+			<dl>
+				<dt>
+					Rolex
+				</dt>
+				<dd>
+					劳力士创始人为汉斯.威尔斯多夫，1908年他在瑞士将劳力士注册为商标。
+				</dd>
+				<dt>
+					Vacheron Constantin
+				</dt>
+				<dd>
+					始创于1775年的江诗丹顿已有250年历史，
+				</dd>
+				<dd>
+					是世界上历史最悠久、延续时间最长的名表之一。
+				</dd>
+				<dt>
+					IWC
+				</dt>
+				<dd>
+					创立于1868年的万国表有“机械表专家”之称。
+				</dd>
+				<dt>
+					Cartier
+				</dt>
+				<dd>
+					卡地亚拥有150多年历史，是法国珠宝金银首饰的制造名家。
+				</dd>
+			</dl>
+		</div>
+	</div>
+	<div class="row-fluid">
+		<div class="span12">
+		</div>
+	</div>
+	<div class="row-fluid">
+		<div class="span12">
 		</div>
 	</div>
 </div>
+	</body>
+</html>
+

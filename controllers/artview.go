@@ -25,5 +25,5 @@ func (this *ArtViewController) Get() {
 		return
 	}
 	this.Data["ja"] = ja
-	this.TplNames = "artview.tpl"
+	this.TplNames = "artview.html"
 }
