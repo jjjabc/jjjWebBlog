@@ -10,5 +10,5 @@ type AdminController struct {
 
 func (c *AdminController) Get() {
 
-	c.TplNames = "admin.tpl"
+	c.TplNames = "admin.html"
 }
