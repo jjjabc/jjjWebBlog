@@ -1,0 +1,29 @@
+#image-text-content-block {
+
+}
+#image-text-margin-block {
+
+}
+#inner-content {
+	width: 90% !important;
+	max-width: 1360px;
+}
+#text-under-image-block {
+	float: left;
+	padding-top: 3.5%;
+}
+#text-under-content-block {
+	padding-top: 7%;
+	float: left;
+	padding-bottom: 40px;
+}
+#text-under-content {
+
+}
+#main-heading-part {
+	font-size: 18px;
+}
+#text-under-all {
+	width: 100%;
+	clear: left;
+}
