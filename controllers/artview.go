@@ -10,6 +10,11 @@ type ArtViewController struct {
 	beego.Controller
 }
 
+type artTitle struct {
+	Id    int
+	Title string
+}
+
 func (this *ArtViewController) Get() {
 
 	artId, err := strconv.Atoi(this.GetString("artid"))
@@ -24,6 +29,30 @@ func (this *ArtViewController) Get() {
 		this.Ctx.WriteString("Article is not published!")
 		return
 	}
+	var next *artTitle
+	nextId, err := strconv.Atoi(this.GetString("nextid"))
+	if err != nil {
+		jart := article.GetArticle(nextId)
+		if jart == nil {
+			next = nil
+		} else {
+			next.Id = nextId
+			next.Title = jart.Title
+		}
+	}
+	var preview *artTitle
+	preId, err := strconv.Atoi(this.GetString("preid"))
+	if err != nil {
+		jart := article.GetArticle(preId)
+		if jart == nil {
+			preview = nil
+		} else {
+			preview.Id = preId
+			preview.Title = jart.Title
+		}
+	}
 	this.Data["ja"] = ja
+	this.Data["next"] = next
+	this.Data["preview"] = preview
 	this.TplNames = "artview.html"
 }
