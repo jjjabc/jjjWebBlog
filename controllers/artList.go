@@ -23,5 +23,5 @@ func (this *ArtListController) Get() {
 	}
 	beego.Info("jas len:" + strconv.Itoa(len(jas)))
 	this.Data["jas"] = jas
-	this.TplNames = "artList.tpl"
+	this.TplNames = "artList.html"
 }

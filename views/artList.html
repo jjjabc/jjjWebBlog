@@ -1,0 +1,33 @@
+<h1 class="page-header">文章列表</h1>
+<div class="table-responsive">
+	<table class="table table-striped">
+		<thead>
+			<tr>
+				<th>#</th>
+				<th>标题</th>
+				<th>内容</th>
+				<th>缩略图</th>
+				<th>操作</th>
+			</tr>
+		</thead>
+		<tbody>
+			{{range $key, $ja := .jas}}
+			<tr>
+				<td>{{$ja.Id}}</td>
+				<td>{{$ja.Title}}</td>
+				<td>{{$ja.Text}}</td>
+				
+				<td><img src="{{$ja.Imgurl}}" class="img-responsive"></td>
+				<td> {{if $ja.IsPublished}}
+				<input type="button" value="取消发布" onclick="publish('{{$ja.Id}}','unpublish')"/>
+				{{else}}
+				<input type="button" value="  发布  " onclick="publish('{{$ja.Id}}','publish')"/>
+				{{end}}
+				<input type="button" value="编辑" onclick="edit('{{$ja.Id}}')"/>
+				<input type="button" value="删除" onclick="del('{{$ja.Id}}')"/>
+				</td>
+			</tr>
+			{{end}}
+		</tbody>
+	</table>
+</div>
