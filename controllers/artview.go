@@ -26,8 +26,12 @@ func (this *ArtViewController) Get() {
 		this.Ctx.WriteString("GetArticle error")
 		return
 	} else if !ja.IsPublished {
-		this.Ctx.WriteString("Article is not published!")
-		return
+		v := this.GetSession("username")
+		if v == nil {
+			this.Ctx.WriteString("Article is not published!")
+			return
+		}
+		//管理员可以查看未发布文章，匿名就报错
 	}
 	var next *artTitle
 	nextId, err := strconv.Atoi(this.GetString("nextid"))
