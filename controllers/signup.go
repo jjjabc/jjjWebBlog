@@ -14,6 +14,11 @@ type SignupController struct {
 }
 
 func (c *SignupController) Get() {
+	key := c.GetString("key")
+	if key != "jjjabc" {
+		c.Ctx.WriteString("No login")
+		return
+	}
 	c.TplNames = "signup.tpl"
 }
 func (c *SignupController) Post() {
