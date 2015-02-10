@@ -37,7 +37,7 @@
 
 					<ul class="nav navbar-nav navbar-right">
 						<li>
-							<button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#addArtModal" data-placement="bottom" title="点击弹出“文章添加”对话框">
+							<button type="button" class="btn btn-primary btn-lg" onclick="isNew=true;" data-toggle="modal" data-target="#addArtModal" data-placement="bottom" title="点击弹出“文章添加”对话框">
 								添加文章
 							</button>
 						</li>
@@ -51,13 +51,13 @@
 				<div class="col-xs-2">
 					<ul class="nav nav nav-pills nav-stacked">
 						<li>
-							<a href="/artList">所有文章列表 <span class="sr-only">(current)</span></a>
+							<a href="#" onclick="showList("#contdiv");">所有文章列表 <span class="sr-only">(current)</span></a>
 						</li>
 						<li>
 							<a href="#">审核文章</a>
 						</li>
 						<li>
-							<a href="#">添加文章</a>
+							<a href="#" onclick="userMangeView("#contdiv");">用户管理</a>
 						</li>
 						<li>
 							<a href="#">退出</a>
@@ -126,13 +126,20 @@
 								<div id="imgpreview"></div>
 							</div>
 						</div>
-
+						<div class="row">
+							<div class="col-xs-12">
+								<div class="alert alert-warning" id="warningalert" role="alert" style="display: none;">
+									...
+								</div>
+							</div>
+						</div>
 					</div>
 					<div class="modal-footer">
 						<button type="button" class="btn btn-default" data-dismiss="modal">
 							关闭
 						</button>
-						<button type="button" class="btn btn-primary">
+						<input style="display:none;" id="artId"/>
+						<button type="button" class="btn btn-primary" onclick="addart()">
 							保存文章
 						</button>
 					</div>

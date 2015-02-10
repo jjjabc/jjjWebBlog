@@ -1,6 +1,7 @@
 package user
 
 import (
+	"errors"
 	"github.com/garyburd/redigo/redis"
 	"jjjBlog/orm"
 	"strconv"
@@ -50,6 +51,32 @@ func GetUser(uid int) *JJJuser {
 	}
 	ju.Description, _ = redis.String(orm.Red.Do("GET", "account:des:"+strconv.Itoa(uid)))
 	return &ju
+}
+
+func GetAllUser() ([]JJJuser, error) {
+	//2147483647是32位系统中Int的最大值
+	return GetUsers(1, 2000000000)
+}
+
+func GetUsers(pageNum int, number int) ([]JJJuser, error) {
+	Sets := "account:UidSets"
+	all, err := redis.Strings(orm.Red.Do("SMEMBERS", Sets))
+	if len(all) == 0 {
+		return make([]JJJuser, 0), nil
+	}
+	if err != nil {
+		return nil, errors.New("DB error")
+	}
+	juSets := make([]JJJuser, 0)
+	start := (pageNum - 1) * number
+	last := len(all) - 1
+
+	for i := start; (i < (start + number)) && (i <= last); i++ {
+		uId, _ := strconv.Atoi(all[i])
+		ju := GetUser(uId)
+		juSets = append(juSets, *ju)
+	}
+	return juSets, nil
 }
 
 func generateUid() (int, error) {

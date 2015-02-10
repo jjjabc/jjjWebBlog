@@ -18,4 +18,5 @@ func init() {
 	beego.Router("/updataArt", &controllers.UpdataArtController{})
 	beego.Router("/upload", &controllers.UploadFileController{})
 	beego.Router("/viewart", &controllers.ArtViewController{})
+	beego.Router("/userManage", &controllers.UserManageController{})
 }

@@ -14,10 +14,10 @@
 			{{range $key, $ja := .jas}}
 			<tr>
 				<td>{{$ja.Id}}</td>
-				<td>{{$ja.Title}}</td>
-				<td>{{$ja.Text}}</td>
+				<td id="title{{$ja.Id}}">{{$ja.Title}}</td>
+				<td id="text{{$ja.Id}}">{{$ja.Text}}</td>
 				
-				<td><img src="{{$ja.Imgurl}}" class="img-responsive"></td>
+				<td><img id="img{{$ja.Id}}" src="{{$ja.Imgurl}}" class="img-responsive"></td>
 				<td> {{if $ja.IsPublished}}
 				<input type="button" value="取消发布" onclick="publish('{{$ja.Id}}','unpublish')"/>
 				{{else}}
