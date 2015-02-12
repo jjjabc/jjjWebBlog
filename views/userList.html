@@ -1,0 +1,31 @@
+<script src="../static/js/user.js"></script>
+<h1 class="page-header">用户列表</h1>
+<div class="table-responsive">
+	<table class="table table-striped">
+		<thead>
+			<tr>
+				<th>#</th>
+				<th>用户名</th>
+				<th>昵称</th>
+				<th>描述</th>
+				<th>操作</th>
+			</tr>
+		</thead>
+		<tbody>
+			{{range $key, $ju := .jus}}
+			<tr>
+				<td>{{$ju.Id}}</td>
+				<td id="name{{$ju.Id}}">{{$ju.Name}}</td>
+				<td id="nickname{{$ju.Id}}">{{$ju.NickName}}</td>
+				
+				<td id="des{{$ju.Id}}">{{$ju.Description}}</td>
+				<td>
+				<input type="button" value="修改密码" onclick="pwd('{{$ju.Id}}')"/>
+				<input type="button" value="编辑" onclick="edituser('{{$ju.Id}}')"/>
+				<input type="button" value="删除" onclick="deluser('{{$ju.Id}}')"/>
+				</td>
+			</tr>
+			{{end}}
+		</tbody>
+	</table>
+</div>

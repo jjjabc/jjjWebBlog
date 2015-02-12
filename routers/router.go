@@ -16,7 +16,7 @@ func init() {
 	beego.Router("/publishArt", &controllers.PublishArtController{})
 	beego.Router("/delArt", &controllers.DelArtController{})
 	beego.Router("/updataArt", &controllers.UpdataArtController{})
-	beego.Router("/upload", &controllers.UploadFileController{})
-	beego.Router("/viewart", &controllers.ArtViewController{})
-	beego.Router("/userManage", &controllers.UserManageController{})
+	beego.Router("/user/list", &controllers.UserController{}, "get:List")
+	beego.Router("/userdel", &controllers.UserController{}, "post:Delete")
+	beego.Router("/user", &controllers.UserController{}, "put:Put")
 }

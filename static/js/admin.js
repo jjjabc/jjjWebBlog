@@ -1,8 +1,9 @@
 function userMangeView(id){
-	$.get("/artList", function(result) {
+	$.get("/user/list", function(result) {
 		$(id).html(result);
 	});
 }
+
 var isNew=true;
 function showList(id) {
 	$.get("/artList", function(result) {
