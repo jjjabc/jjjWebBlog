@@ -23,12 +23,15 @@ func (this *AddartController) Post() {
 	if err := ja.AddArticle(); err != nil {
 		beego.Info("add error")
 		this.Ctx.WriteString("add error")
+		return
 	}
 	if ja.IsPublished {
 		if err := ja.Publish(); err != nil {
 			beego.Info("publish error")
 			this.Ctx.WriteString("publish error")
+			return
 		}
 	}
 	this.Ctx.WriteString("OK")
+	return
 }
