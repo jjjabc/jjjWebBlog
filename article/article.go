@@ -101,14 +101,17 @@ func GetAllArticles() ([]JJJarticle, error) {
 	//2147483647是32位系统中Int的最大值
 	return getArticles(1, 2000000000, false)
 }
-func getArticles(pageNum int, number int, isPublished bool) ([]JJJarticle, error) {
+func getArtsId(isPublished bool) ([]string, error) {
 	var Sets string
 	if isPublished {
 		Sets = "art:publishedSets"
 	} else {
 		Sets = "art:IdSets"
 	}
-	all, err := redis.Strings(orm.Red.Do("SMEMBERS", Sets))
+	return redis.Strings(orm.Red.Do("SMEMBERS", Sets))
+}
+func getArticles(pageNum int, number int, isPublished bool) ([]JJJarticle, error) {
+	all, err := getArtsId(isPublished)
 	if len(all) == 0 {
 		return make([]JJJarticle, 0), nil
 	}
@@ -126,4 +129,49 @@ func getArticles(pageNum int, number int, isPublished bool) ([]JJJarticle, error
 	}
 	return jaSets, nil
 
+}
+
+//获取相对于当前文章的上一篇和下一篇文章
+//返回：上一篇artId和下一篇artId，如果没有文章了返回0
+func (this *JJJarticle) GetRoundId() (int, int) {
+	all, err := getArtsId(this.IsPublished)
+	preId := 0
+	nextId := 0
+	if this.Id == 0 {
+		return 0, 0
+	}
+	thisIdstr := strconv.Itoa(this.Id)
+	//没有文章 或 只有一篇文章
+	if (len(all) == 0) || (len(all) == 1) {
+		return 0, 0
+	}
+
+	//第一篇文章
+	if thisIdstr == all[0] {
+		if nextId, err = strconv.Atoi(all[1]); err != nil {
+			return 0, 0
+		}
+		return 0, nextId
+	}
+
+	//最后一篇文章
+	if thisIdstr == all[len(all)-1] {
+		if preId, err = strconv.Atoi(all[len(all)-2]); err != nil {
+			return 0, 0
+		}
+		return preId, 0
+	}
+
+	//其余文章(第2篇——倒数第二篇)
+	for i := 1; i < (len(all) - 1); i++ {
+		if thisIdstr == all[i] {
+			preId, err = strconv.Atoi(all[i-1])
+			nextId, err = strconv.Atoi(all[i+1])
+			if err != nil {
+				return 0, 0
+			}
+			break
+		}
+	}
+	return preId, nextId
 }

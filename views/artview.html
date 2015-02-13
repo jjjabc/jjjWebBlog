@@ -1,0 +1,108 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no">
+		<link href="static/css/headnav.css" rel="stylesheet" type="text/css">
+		<!-- 新 Bootstrap 核心 CSS 文件 -->
+		<link href="static/bootstrap-3.3.2-dist/css/bootstrap.min.css" rel="stylesheet">
+
+		<!-- 可选的Bootstrap主题文件（一般不使用） -->
+		<script src="static/bootstrap-3.3.2-dist/css/bootstrap-theme.min.css"></script>
+
+		<!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->
+		<script src="static/js/jquery.min.js"></script>
+
+		<!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+		<script src="static/bootstrap-3.3.2-dist/js/bootstrap.min.js"></script>
+		<title>Wicwin.com</title>
+	</head>
+	<body>
+
+		<nav class="navbar">
+			<div class="container-fluid">
+				<!-- Brand and toggle get grouped for better mobile display -->
+				<div class="row">
+					<div class="col-xs-12 navbar-header navbar-default" style="background-color: #ffffff">
+						<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse-div">
+							<span class="sr-only">Menu</span>
+							<span class="icon-bar"></span>
+							<span class="icon-bar"></span>
+							<span class="icon-bar"></span>
+						</button>
+						<img src="/static/img/logo_b_50.png" class="logoimg">
+					</div>
+				</div>
+
+				<!-- Collect the nav links, forms, and other content for toggling -->
+				<div class="collapse navbar-collapse" id="navbar-collapse-div">
+					<div>
+						<a class="menuA" href="/">Home</a>
+						<a class="menuA" href="/static/contact_us.html">Conatact us</a>
+						<a class="menuA" href="/list">Case</a>
+					</div>
+				</div><!-- /.navbar-collapse -->
+			</div><!-- /.container-fluid -->
+		</nav>
+		<div class="container-fluid" style="padding: 0;">
+			<div class="row-fluid">
+				<div class="col-md-6" style="padding: 0;">
+					<img src="{{.ja.Imgurl}}" class="img-responsive">
+					<h2>{{.ja.Title}}</h2>
+				</div>
+				<div class="col-md-6">
+					<p>
+						{{.ja.Text}}
+					</p>
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="col-xs-12">
+					<div class="row">
+						<div class="col-xs-12">
+							<ul class="pager">
+								{{if .preview}}
+								<li class="previous">
+									<a href="/viewart?artid={{.preview.Id}}&nextid={{.ja.Id}}">&larr; 前一篇</a>
+								</li>
+								{{else}}
+								<li class="previous disabled">
+									<a href="#">&larr; 上一篇</a>
+								</li>
+
+								{{end}}
+
+								{{if .next}}
+								<li class="next">
+									<a href="/viewart?artid={{.next.Id}}&preid={{.ja.Id}}">后一篇 &rarr;</a>
+								</li>
+								{{else}}
+								<li class="next disabled">
+									<a href="#">后一篇 &rarr;</a>
+								</li>
+								{{end}}
+
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+
+		</div>
+		<div class="container-fluid" style="padding: 0;margin: 0">
+			<div class="row-fluid">
+				<div class="col-xs-12" style="background-color:#222222;">
+					<div class="row">
+						<div class="col-xs-12" style="padding-top: 12px;padding-bottom: 15px;">
+							<img src="/static/img/logoew26.png" style="display: block;float: right;">
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		</div>
+	</body>
+</html>
+

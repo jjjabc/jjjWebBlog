@@ -1,0 +1,152 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no">
+		<link href="static/css/jjj.css" rel="stylesheet" type="text/css">
+		<!-- 新 Bootstrap 核心 CSS 文件 -->
+		<link href="static/bootstrap-3.3.2-dist/css/bootstrap.min.css" rel="stylesheet">
+
+		<!-- 可选的Bootstrap主题文件（一般不使用） -->
+		<script src="static/bootstrap-3.3.2-dist/css/bootstrap-theme.min.css"></script>
+
+		<!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->
+		<script src="static/js/jquery.min.js"></script>
+
+		<!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+		<script src="static/bootstrap-3.3.2-dist/js/bootstrap.min.js"></script>
+		<script src="static/js/admin.js"></script>
+		<script>
+			$(document).ready(function() {
+				showList("#contdiv");
+			});
+		</script>
+		<title>Wicwin.com</title>
+	</head>
+
+	<body>
+		<nav class="navbar navbar-default">
+			<div class="container-fluid">
+				<!-- Brand and toggle get grouped for better mobile display -->
+				<div class="navbar-header">
+					<a class="navbar-brand" href="#">智信创赢</a>
+				</div>
+
+				<div class="collapse navbar-collapse">
+
+					<ul class="nav navbar-nav navbar-right">
+						<li>
+							<button type="button" class="btn btn-primary btn-lg" onclick="isNew=true;" data-toggle="modal" data-target="#addArtModal" data-placement="bottom" title="点击弹出“文章添加”对话框">
+								添加文章
+							</button>
+						</li>
+					</ul>
+				</div>
+
+			</div><!-- /.container-fluid -->
+		</nav>
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col-xs-2">
+					<ul class="nav nav nav-pills nav-stacked">
+						<li>
+							<a href="#" onclick="showList('#contdiv');">所有文章列表 <span class="sr-only">(current)</span></a>
+						</li>
+						<li>
+							<a href="#">审核文章</a>
+						</li>
+						<li>
+							<a href="#" onclick="userMangeView('#contdiv');">用户管理</a>
+						</li>
+						<li>
+							<a href="#">退出</a>
+						</li>
+					</ul>
+				</div>
+
+				<div class="col-xs-10">
+					<div id="contdiv">
+						<div class="jumbotron">
+							<h1>智信创赢</h1>
+							<p>
+								Wicwin
+							</p>
+							<p>
+								<a class="btn btn-primary btn-lg" href="#" role="button">登陆</a>
+							</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="modal fade" id="addArtModal" tabindex="-1" role="dialog" aria-labelledby="addArtModalLabel" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+						<h4 class="modal-title" id="addArtModalLabel">添加文章</h4>
+					</div>
+
+					<div class="modal-body">
+						<div class="row">
+							<div class="col-xs-7">
+								<div>
+									标题：
+									<input id="arttitle" type="text" />
+									<br>
+									<div>
+										内容：
+									</div>
+									<textarea id="arttext" rows="5"></textarea>
+								</div>
+								<div>
+									<input type="checkbox" id="artaction" />
+									提交并发布
+								</div>
+								<div id="uploadDiv">
+									<div>
+										<input id="file" type="file" />
+									</div>
+									<div>
+										<input type="button" onclick="UpladFile()" value="上传" />
+										<input id="imgurl" style="display:none;" value=""/>
+									</div>
+
+									<div id="percentage"></div>
+								</div>
+
+								<progress id="progressBar" value="0" max="100" style="width:100%"></progress>
+							</div>
+							<div class="col-xs-5">
+
+								<div id="imgpreview"></div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-xs-12">
+								<div class="alert alert-warning" id="warningalert" role="alert" style="display: none;">
+									...
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">
+							关闭
+						</button>
+						<input style="display:none;" id="artId"/>
+						<button type="button" class="btn btn-primary" onclick="addart()">
+							保存文章
+						</button>
+					</div>
+				</div>
+			</div>
+		</div>
+
+	</body>
+</html>
+

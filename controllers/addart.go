@@ -19,6 +19,7 @@ func (this *AddartController) Post() {
 	ja := article.JJJarticle{}
 	ja.Title = this.GetString("title")
 	ja.Text = this.GetString("text")
+	ja.Imgurl = this.GetString("imgurl")
 	ja.IsPublished, _ = strconv.ParseBool(this.GetString("ispublish"))
 	if err := ja.AddArticle(); err != nil {
 		beego.Info("add error")
