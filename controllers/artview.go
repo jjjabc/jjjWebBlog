@@ -33,28 +33,38 @@ func (this *ArtViewController) Get() {
 		}
 		//管理员可以查看未发布文章，匿名就报错
 	}
-	var next *artTitle
-	nextId, err := strconv.Atoi(this.GetString("nextid"))
-	if err != nil {
-		jart := article.GetArticle(nextId)
-		if jart == nil {
-			next = nil
+	preId, nextId := ja.GetRoundId()
+	preview := article.GetArticle(preId)
+	next := article.GetArticle(nextId)
+	/*	var next *artTitle
+		nextId, err := strconv.Atoi(this.GetString("nextid"))
+		if err == nil {
+			jart := article.GetArticle(nextId)
+			if jart == nil {
+				next = nil
+			} else {
+				next = new(artTitle)
+				next.Id = nextId
+				next.Title = jart.Title
+			}
 		} else {
-			next.Id = nextId
-			next.Title = jart.Title
+			preId, nextId = ja.GetRoundId()
 		}
-	}
-	var preview *artTitle
-	preId, err := strconv.Atoi(this.GetString("preid"))
-	if err != nil {
-		jart := article.GetArticle(preId)
-		if jart == nil {
-			preview = nil
+		var preview *artTitle
+		preId, err := strconv.Atoi(this.GetString("preid"))
+		if err == nil {
+			jart := article.GetArticle(preId)
+			if jart == nil {
+				preview = nil
+			} else {
+				preview = new(artTitle)
+				preview.Id = preId
+				preview.Title = jart.Title
+			}
 		} else {
-			preview.Id = preId
-			preview.Title = jart.Title
+			preId, nextId = ja.GetRoundId()
 		}
-	}
+	*/
 	this.Data["ja"] = ja
 	this.Data["next"] = next
 	this.Data["preview"] = preview

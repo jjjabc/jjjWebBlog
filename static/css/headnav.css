@@ -1,0 +1,13 @@
+.menuA {
+	display: inline-block;
+	margin-right: 50px;
+	font-size: 18px;
+}
+.menuA:link {
+	color: #000000;
+	font-weight: bold;
+}
+.logoimg{
+	padding-top: 10px;
+	padding-bottom:10px;
+}
