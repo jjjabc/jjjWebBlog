@@ -10,11 +10,6 @@ type ArtViewController struct {
 	beego.Controller
 }
 
-type artTitle struct {
-	Id    int
-	Title string
-}
-
 func (this *ArtViewController) Get() {
 
 	artId, err := strconv.Atoi(this.GetString("artid"))
