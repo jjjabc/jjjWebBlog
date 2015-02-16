@@ -13,14 +13,6 @@ type SignupController struct {
 	beego.Controller
 }
 
-func (c *SignupController) Get() {
-	v := c.GetSession("username")
-	if v == nil {
-		c.Ctx.WriteString("Not login！")
-		return
-	}
-	c.TplNames = "signup.tpl"
-}
 func (c *SignupController) Post() {
 	v := c.GetSession("username")
 	if v == nil {
@@ -37,9 +29,8 @@ func (c *SignupController) Post() {
 	}
 	err := ju.SigupUser(password)
 	if err != nil {
-		beego.Info("SigupUser err:" + err.Error())
-		c.Ctx.Redirect(302, "./login")
+		c.Ctx.WriteString("SigupUser err:" + err.Error())
 		return
 	}
-	c.Ctx.Redirect(302, "./login")
+	c.Ctx.WriteString("OK")
 }
