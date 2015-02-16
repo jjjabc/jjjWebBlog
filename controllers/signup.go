@@ -14,14 +14,19 @@ type SignupController struct {
 }
 
 func (c *SignupController) Get() {
-	key := c.GetString("key")
-	if key != "jjjabc" {
-		c.Ctx.WriteString("No login")
+	v := c.GetSession("username")
+	if v == nil {
+		c.Ctx.WriteString("Not login！")
 		return
 	}
 	c.TplNames = "signup.tpl"
 }
 func (c *SignupController) Post() {
+	v := c.GetSession("username")
+	if v == nil {
+		c.Ctx.WriteString("Not login！")
+		return
+	}
 	username := c.GetString("username")
 	password := c.GetString("password")
 

@@ -67,7 +67,7 @@
 			<div id="menudiv">
 				<a class="menuA" href="/">Home</a>
 				<a class="menuA" href="/static/contact_us.html">Conatact us</a>
-				<a class="menuA" href="#" onclick="$('html,body').animate({scrollTop:$('#cont').offset().top},1000);">Case</a>
+				<a class="menuA" href="/viewlist">Case</a>
 			</div>
 		</div>
 		<div id="mobile">
@@ -84,10 +84,11 @@
 					Home
 				</div>
 				<div class="Smenu">
-					Conatact us
+					<a href="/static/contact_us.html">Conatact us</a>
 				</div>
-				<div class="Smenu" onclick="$('html,body').animate({scrollTop:$('#cont').offset().top},1000);">
-					Case
+				<div class="Smenu">
+					<a href="/viewlist">Case</a>
+
 				</div>
 			</div>
 
