@@ -22,4 +22,6 @@ func init() {
 	beego.Router("/upload", &controllers.UploadFileController{})
 	beego.Router("/viewart", &controllers.ArtViewController{})
 	beego.Router("/viewlist", &controllers.ViewListController{})
+	beego.Router("/viewlistcg", &controllers.ViewListController{},"get:GetCg")
+	beego.Router("/listcg", &controllers.ListController{},"get:GetCg")
 }

@@ -24,3 +24,19 @@ func (this *ViewListController) Get() {
 	this.Data["page"] = page
 	this.TplNames = "viewlist.html"
 }
+
+func (this *ViewListController) GetCg() {
+	page, err := strconv.Atoi(this.GetString("page"))
+	if err != nil {
+		page = 1
+	}
+	category:=this.GetString("cg")
+	jas, err := article.GetPublishedArticlesByCategory(page, 10,category)
+	if err != nil {
+		this.Data["jas"] = nil
+		return
+	}
+	this.Data["jas"] = jas
+	this.Data["page"] = page
+	this.TplNames = "viewlist.html"
+}

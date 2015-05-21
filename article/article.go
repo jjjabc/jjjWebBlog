@@ -1,6 +1,7 @@
 package article
 
 import (
+	"fmt"
 	"errors"
 	"github.com/garyburd/redigo/redis"
 	"jjjBlog/orm"
@@ -15,6 +16,7 @@ type JJJarticle struct {
 	Imgurl        string
 	PublishedTime time.Time
 	IsPublished   bool
+	Category	string
 }
 
 func (this *JJJarticle) AddArticle() error {
@@ -26,7 +28,9 @@ func (this *JJJarticle) AddArticle() error {
 	orm.Red.Send("SET", "art:"+strconv.Itoa(jaId)+":title", this.Title)
 	orm.Red.Send("SET", "art:"+strconv.Itoa(jaId)+":text", this.Text)
 	orm.Red.Send("SET", "art:"+strconv.Itoa(jaId)+":img", this.Imgurl)
+	orm.Red.Send("SET", "art:"+strconv.Itoa(jaId)+":cg", this.Category)
 	orm.Red.Send("SADD", "art:IdSets", strconv.Itoa(jaId))
+	orm.Red.Send("SADD", "Sets:"+this.Category, strconv.Itoa(jaId))
 	return orm.Red.Flush()
 }
 
@@ -60,7 +64,9 @@ func (this *JJJarticle) DelArticle() error {
 	orm.Red.Send("DEL", "art:"+strconv.Itoa(this.Id)+":title")
 	orm.Red.Send("DEL", "art:"+strconv.Itoa(this.Id)+":text")
 	orm.Red.Send("DEL", "art:"+strconv.Itoa(this.Id)+":img")
+	orm.Red.Send("DEL", "art:"+strconv.Itoa(this.Id)+":cg")
 	orm.Red.Send("SREM", "art:IdSets", strconv.Itoa(this.Id))
+	orm.Red.Send("SREM", "Sets:"+this.Category, strconv.Itoa(this.Id))
 	if err := orm.Red.Flush(); err != nil {
 		return err
 	}
@@ -77,6 +83,7 @@ func (this *JJJarticle) UpdataArticle() error {
 	orm.Red.Send("SET", "art:"+strconv.Itoa(jaId)+":img", this.Imgurl)
 	return orm.Red.Flush()
 }
+
 func GetArticle(ArticleId int) *JJJarticle {
 	ja := JJJarticle{
 		Id: ArticleId,
@@ -88,12 +95,18 @@ func GetArticle(ArticleId int) *JJJarticle {
 	}
 	ja.Text, _ = redis.String(orm.Red.Do("GET", "art:"+strconv.Itoa(ArticleId)+":text"))
 	ja.Imgurl, _ = redis.String(orm.Red.Do("GET", "art:"+strconv.Itoa(ArticleId)+":img"))
+	ja.Category,_ = redis.String(orm.Red.Do("GET", "art:"+strconv.Itoa(ArticleId)+":cg"))
 	ja.IsPublished, _ = redis.Bool(orm.Red.Do("SISMEMBER", "art:publishedSets", strconv.Itoa(ArticleId)))
 	timeString, _ := redis.String(orm.Red.Do("GET", "art:"+strconv.Itoa(ArticleId)+"publishedTime"))
 	dbpubtime, _ := time.Parse(timeString, timeString)
 	ja.PublishedTime = dbpubtime
 	return &ja
 }
+
+func GetPublishedArticlesByCategory(pageNum int, number int,category string)([]JJJarticle,error){
+	return getArticlesByCategory(pageNum,number,true,category)
+}
+
 func GetPublishedArticles(pageNum int, number int) ([]JJJarticle, error) {
 	return getArticles(pageNum, number, true)
 }
@@ -110,6 +123,37 @@ func getArtsId(isPublished bool) ([]string, error) {
 	}
 	return redis.Strings(orm.Red.Do("SMEMBERS", Sets))
 }
+func getArtsIdByCategory(isPublished bool,category string) ([]string, error) {
+	var Sets string
+	if isPublished {
+		Sets = "art:publishedSets"
+	} else {
+		Sets = "art:IdSets"
+	}
+	cgsets:="Sets:"+category
+	fmt.Println(cgsets)
+	return redis.Strings(orm.Red.Do("SINTER", Sets,cgsets))
+}
+func getArticlesByCategory(pageNum int, number int, isPublished bool,category string)([]JJJarticle, error){
+		all, err := getArtsIdByCategory(isPublished,category)
+	if len(all) == 0 {
+		return make([]JJJarticle, 0), nil
+	}
+	if err != nil {
+		return nil, errors.New("DB error")
+	}
+	jaSets := make([]JJJarticle, 0)
+	start := (pageNum - 1) * number
+	last := len(all) - 1
+
+	for i := start; (i < (start + number)) && (i <= last); i++ {
+		aId, _ := strconv.Atoi(all[i])
+		ja := GetArticle(aId)
+		jaSets = append(jaSets, *ja)
+	}
+	return jaSets, nil
+}
+
 func getArticles(pageNum int, number int, isPublished bool) ([]JJJarticle, error) {
 	all, err := getArtsId(isPublished)
 	if len(all) == 0 {

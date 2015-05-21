@@ -4,10 +4,10 @@
 	     <h1>Login</h1>
 	     <form method = "post"   action = "./login">
 	        <p>
-	           username<input name="username" type="text" value="jjjabc">
+	           username<input name="username" type="text">
 	        </p>
 			<p>
-	           password<input name="password" type="text" value="123">
+	           password<input name="password" type="text">
 	        </p>
 			<input type="submit" value="Submit" />
 	     </form>
