@@ -2,11 +2,19 @@
 	display: inline-block;
 	margin-right: 50px;
 	font-size: 18px;
+	font-family:'SYHT', 'Microsoft Yahei', '微软雅黑', Arial, Helvetica, sans-serif;
 }
 .menuA:link {
 	color: #000000;
-	font-weight: bold;
 }
+.menuA:visited  {
+	color: #000000;
+}.menuA:hover  {
+	color: #000000;
+	font-weight: bold;
+	text-decoration:none;
+}
+
 .logoimg{
 	padding-top: 10px;
 	padding-bottom:10px;

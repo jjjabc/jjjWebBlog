@@ -10,13 +10,13 @@ type MainController struct {
 }
 
 func (this *MainController) Get() {
-	jas, err := article.GetPublishedArticles(1, 10)
+	jas, err := article.GetPublishedArticlesByCategory(1, 10, "top")
 	if err != nil {
 		beego.Info("error!")
-		this.Data["msg"] = "error:" + err.Error()
+		//		this.Data["msg"] = "error:" + err.Error()
 	}
 	beego.Info("IP:" + this.Ctx.Request.RemoteAddr + "	Host:" + this.Ctx.Request.Host)
 	this.Data["jas"] = jas
 
-	this.TplNames = "index.tpl"
+	this.TplNames = "index.html"
 }
