@@ -4,23 +4,24 @@
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 		<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no">
-		<link href="static/css/headnav.css" rel="stylesheet" type="text/css">
+		<script src="/static/js/jquery-1.11.2.js"></script>
+		<script src="/static/js/top.js"></script>
+		<link href="/static/css/jjj.css" rel="stylesheet" type="text/css">
+		<link href="/static/css/headnav.css" rel="stylesheet" type="text/css">
 		<!-- 新 Bootstrap 核心 CSS 文件 -->
-		<link href="static/bootstrap-3.3.2-dist/css/bootstrap.min.css" rel="stylesheet">
+		<link href="/static/bootstrap-3.3.2-dist/css/bootstrap.min.css" rel="stylesheet">
 
 		<!-- 可选的Bootstrap主题文件（一般不使用） -->
-	
-		<link href="static/css/jjj.css" rel="stylesheet" type="text/css">
-		<link href="static/css/top.css" rel="stylesheet" type="text/css">
 
 		<!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->
-		<script src="static/js/jquery.min.js"></script>
+		<script src="/static/js/jquery.min.js"></script>
 
 		<!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
-		<script src="static/bootstrap-3.3.2-dist/js/bootstrap.min.js"></script>
-		<title>智信创赢</title>
+		<script src="/static/bootstrap-3.3.2-dist/js/bootstrap.min.js"></script>
+		<title>Wicwin.com</title>
 	</head>
-	<body onload="resizefun()">
+	<body>
+
 		<nav class="navbar">
 			<div class="container-fluid">
 				<!-- Brand and toggle get grouped for better mobile display -->
@@ -32,7 +33,7 @@
 							<span class="icon-bar"></span>
 							<span class="icon-bar"></span>
 						</button>
-						<a href="/" ><img src="static/img/logo_b_50.png" class="logoimg" style="float: left;padding-right:30px;"></a>
+						<a href="/" ><img src="/static/img/logo_b_50.png" class="logoimg" style="float: left;padding-right:30px;"></a>
 						
 					<div class="collapse navbar-collapse" id="navbar-collapse-div" style="float: right;position: relative;">
 					<div id="navmenu" style="padding-left:50px">
@@ -50,55 +51,31 @@
 
 			</div><!-- /.container-fluid -->
 		</nav>
-
 		
-<script src="static/js/jquery-1.11.2.js"></script>
-<script src="static/js/top.js"></script>
-
-		<div class="container-fluid" style="padding: 0;background-color: black;">
-			
-			{{range $key, $ja := .jas}}
+		<div class="container-fluid" style="padding:0;">
 			<div class="row-fluid">
-				<div class="col-xs-12" style="padding:0;">
-					<img id="topcontainer" class="img-responsive" style="width:100%" src="{{$ja.Imgurl}}">
-					<div id="topcontenttitle" class="visible-xs-block" style="padding:30px;font-size: 48px;width:100%;color: #ffffff;position: absolute;top: 0;">
-						{{$ja.Title}}
-					</div>
-					<div id="topcontent" class="hidden-xs" style="padding:30px 50px 30px 50px;color: #ffffff;position: absolute;top: 0;">
-						<div id="toptitle">
-							{{$ja.Title}}
-						</div>
-						<div id="toptext">
-							{{str2html $ja.Text}}
-						</div>
-					</div>
-
-					<div class="visible-xs-block" style="color: #ffffff;top:-25px;position: relative;">
-
-						<div style="width:100%;height:25px;">
-							<img src="static/img/tanbg.png" style="width: 100%;height: 25px;">
-						</div>
-						<div style="background-color: #000000;padding-left:25px;padding-right:25px;">
-
-							<div>
-								{{str2html $ja.Text}}
-							</div>
-						</div>
-					</div>
+				<div class="col-xs-12" style="padding:0;font-size:24px;font-family:'SYHT', 'Microsoft Yahei', '微软雅黑', Arial, Helvetica, sans-serif;">
+				<img class="img-responsive" style="width:100%" src="/static/img/CTUS02.jpg">
+				<ul>
+				<li>地址：四川省成都市温江区锦绣大道南段99号1310</li>
+				<li>邮编：611130</li>
+				<li>电话：85064526</li>
+				<li>传真：85064526</li>
+				<li>软件与系统集成：张显，13458649697</li>
+				<li>培训与猎头业务：贾洵，18615755775</li>
+				</ul>
 				</div>
 			</div>
-			{{end}}
-
-
-
 		</div>
+
+
 
 		<div class="container-fluid" style="padding: 0;margin: 0">
 			<div class="row-fluid">
 				<div class="col-xs-12" style="background-color:#222222;">
 					<div class="row">
 						<div class="col-xs-12" style="padding-top: 12px;padding-bottom: 15px;">
-							<img src="static/img/logoew26.png" style="display: block;float: right;">
+							<img src="/static/img/logoew26.png" style="display: block;float: right;">
 						</div>
 					</div>
 				</div>
