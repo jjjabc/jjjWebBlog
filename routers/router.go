@@ -25,4 +25,7 @@ func init() {
 	beego.Router("/viewlistcg", &controllers.ViewListController{}, "get:GetCg")
 	beego.Router("/listcg", &controllers.ListController{}, "get:GetCg")
 	beego.Router("/tel", &controllers.MainController{}, "get:GetTel")
+	beego.Router("/viewlistcgJson", &controllers.ViewListController{}, "get:GetCgJson")
+	beego.Router("/telJson", &controllers.MainController{}, "get:GetTelJson")
+	beego.Router("/indexJson", &controllers.MainController{}, "get:GetJson")
 }

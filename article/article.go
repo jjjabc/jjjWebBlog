@@ -1,22 +1,23 @@
 package article
 
 import (
-	"fmt"
 	"errors"
-	"github.com/garyburd/redigo/redis"
+	"fmt"
 	"jjjBlog/orm"
 	"strconv"
 	"time"
+
+	"github.com/garyburd/redigo/redis"
 )
 
 type JJJarticle struct {
-	Title         string
-	Id            int
-	Text          string
-	Imgurl        string
-	PublishedTime time.Time
-	IsPublished   bool
-	Category	string
+	Title         string    `json:"Title"`
+	Id            int       `json:"Id"`
+	Text          string    `json:"Text"`
+	Imgurl        string    `json:"Imgurl"`
+	PublishedTime time.Time `json:"PublishedTime"`
+	IsPublished   bool      `json:"IsPublished"`
+	Category      string    `json:"Category"`
 }
 
 func (this *JJJarticle) AddArticle() error {
@@ -95,7 +96,7 @@ func GetArticle(ArticleId int) *JJJarticle {
 	}
 	ja.Text, _ = redis.String(orm.Red.Do("GET", "art:"+strconv.Itoa(ArticleId)+":text"))
 	ja.Imgurl, _ = redis.String(orm.Red.Do("GET", "art:"+strconv.Itoa(ArticleId)+":img"))
-	ja.Category,_ = redis.String(orm.Red.Do("GET", "art:"+strconv.Itoa(ArticleId)+":cg"))
+	ja.Category, _ = redis.String(orm.Red.Do("GET", "art:"+strconv.Itoa(ArticleId)+":cg"))
 	ja.IsPublished, _ = redis.Bool(orm.Red.Do("SISMEMBER", "art:publishedSets", strconv.Itoa(ArticleId)))
 	timeString, _ := redis.String(orm.Red.Do("GET", "art:"+strconv.Itoa(ArticleId)+"publishedTime"))
 	dbpubtime, _ := time.Parse(timeString, timeString)
@@ -103,8 +104,8 @@ func GetArticle(ArticleId int) *JJJarticle {
 	return &ja
 }
 
-func GetPublishedArticlesByCategory(pageNum int, number int,category string)([]JJJarticle,error){
-	return getArticlesByCategory(pageNum,number,true,category)
+func GetPublishedArticlesByCategory(pageNum int, number int, category string) ([]JJJarticle, error) {
+	return getArticlesByCategory(pageNum, number, true, category)
 }
 
 func GetPublishedArticles(pageNum int, number int) ([]JJJarticle, error) {
@@ -123,19 +124,19 @@ func getArtsId(isPublished bool) ([]string, error) {
 	}
 	return redis.Strings(orm.Red.Do("SMEMBERS", Sets))
 }
-func getArtsIdByCategory(isPublished bool,category string) ([]string, error) {
+func getArtsIdByCategory(isPublished bool, category string) ([]string, error) {
 	var Sets string
 	if isPublished {
 		Sets = "art:publishedSets"
 	} else {
 		Sets = "art:IdSets"
 	}
-	cgsets:="Sets:"+category
+	cgsets := "Sets:" + category
 	fmt.Println(cgsets)
-	return redis.Strings(orm.Red.Do("SINTER", Sets,cgsets))
+	return redis.Strings(orm.Red.Do("SINTER", Sets, cgsets))
 }
-func getArticlesByCategory(pageNum int, number int, isPublished bool,category string)([]JJJarticle, error){
-		all, err := getArtsIdByCategory(isPublished,category)
+func getArticlesByCategory(pageNum int, number int, isPublished bool, category string) ([]JJJarticle, error) {
+	all, err := getArtsIdByCategory(isPublished, category)
 	if len(all) == 0 {
 		return make([]JJJarticle, 0), nil
 	}
