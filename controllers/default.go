@@ -1,8 +1,10 @@
 package controllers
 
 import (
+	"encoding/json"
+	"github.com/jjjabc/jjjWebBlog/article"
+
 	"github.com/astaxie/beego"
-	"jjjBlog/article"
 )
 
 type MainController struct {
@@ -10,13 +12,55 @@ type MainController struct {
 }
 
 func (this *MainController) Get() {
-	jas, err := article.GetPublishedArticles(1, 10)
+	jas, err := article.GetPublishedArticlesByCategory(1, 10, "top")
 	if err != nil {
 		beego.Info("error!")
-		this.Data["msg"] = "error:" + err.Error()
+		//		this.Data["msg"] = "error:" + err.Error()
 	}
-	beego.Info("IP:" + this.Ctx.Request.RemoteAddr + "	Host:" + this.Ctx.Request.Host)
+	//	beego.Info("IP:" + this.Ctx.Request.RemoteAddr + "	Host:" + this.Ctx.Request.Host)
 	this.Data["jas"] = jas
 
-	this.TplNames = "index.tpl"
+	this.TplNames = "index.html"
+}
+
+func (this *MainController) GetTel() {
+	jas, err := article.GetPublishedArticlesByCategory(1, 10, "tel")
+	if err != nil {
+		beego.Info("error!")
+		//		this.Data["msg"] = "error:" + err.Error()
+	}
+	//	beego.Info("IP:" + this.Ctx.Request.RemoteAddr + "	Host:" + this.Ctx.Request.Host)
+	this.Data["jas"] = jas
+
+	this.TplNames = "index.html"
+}
+func (this *MainController) GetTelJson() {
+	jas, err := article.GetPublishedArticlesByCategory(1, 10, "tel")
+	if err != nil {
+		beego.Info("error!")
+		return
+		//		this.Data["msg"] = "error:" + err.Error()
+	}
+	//	beego.Info("IP:" + this.Ctx.Request.RemoteAddr + "	Host:" + this.Ctx.Request.Host)
+	buf, err := json.Marshal(jas)
+	if err != nil {
+		this.Ctx.WriteString("{'error'," + err.Error() + "}")
+		return
+	}
+	this.Ctx.WriteString(string(buf))
+}
+func (this *MainController) GetJson() {
+	jas, err := article.GetPublishedArticlesByCategory(1, 10, "top")
+	if err != nil {
+		beego.Info("error!")
+		return
+		//		this.Data["msg"] = "error:" + err.Error()
+	}
+	//	beego.Info("IP:" + this.Ctx.Request.RemoteAddr + "	Host:" + this.Ctx.Request.Host)
+	buf, err := json.Marshal(jas)
+	if err != nil {
+		this.Ctx.WriteString("{'error'," + err.Error() + "}")
+		return
+	}
+	this.Ctx.WriteString(string(buf))
 }

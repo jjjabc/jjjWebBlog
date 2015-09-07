@@ -64,7 +64,8 @@ function addart() {
 		title : $("#arttitle").val(),
 		text : $("#arttext").val(),
 		ispublish : $("#artaction").val(),
-		imgurl : $("#imgurl").val()
+		imgurl : $("#imgurl").val(),
+		cg : $("#artcg").val()
 	};
 	if(isNew){
 		$.post("/addArt", ja, checkReturn);

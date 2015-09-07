@@ -1,4 +1,4 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
 "http://www.w3.org/TR/html4/loose.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 	<head>
@@ -57,23 +57,30 @@
 				{{end}}
 			}
 		</script>
-		<title>Wicwin.com</title>
+		<title>智信创赢</title>
 	</head>
 	<body>
 		<div id="headdiv">
 			<div id="logodiv">
+				<a href="/">
 				<img src="/static/img/logo_b_50.png">
+				</a>
 			</div>
 			<div id="menudiv">
-				<a class="menuA" href="/">Home</a>
-				<a class="menuA" href="/static/contact_us.html">Conatact us</a>
-				<a class="menuA" href="/viewlist">Case</a>
+				<a class="menuA" href="/viewlistcg?cg=pdt">产品与解决方案</a>
+				<a class="menuA" href="/viewlistcg?cg=edu">IT教育培训服务</a>
+				<a class="menuA" href="/viewlistcg?cg=job">招聘猎头服务</a>
+				<a class="menuA" href="/viewlistcg?cg=news">新闻中心</a>
+				<a class="menuA" href="/static/partner.html">合作伙伴</a>
+				<a class="menuA" href="/static/contact_us.html">联系我们</a>
 			</div>
 		</div>
 		<div id="mobile">
 			<div id="Slogomenudiv"  style="padding-top: 10px;padding-bottom: 10px;">
 				<div id="Slogodiv" style="display: inline-block">
+				<a href="/">
 					<img src="/static/img/logo_b_50.png">
+				</a>
 				</div>
 				<div id="Smenudiv" style="display: inline-block;float:right;">
 					<img src="/static/img/icon-menu-black.png" onclick="$('#Smenulist').toggle();">
@@ -81,15 +88,24 @@
 			</div>
 			<div id="Smenulist" style="display: none;">
 				<div class="Smenu">
-					Home
+					<a href="/viewlistcg?cg=pdt">产品与解决方案</a>
 				</div>
 				<div class="Smenu">
-					<a href="/static/contact_us.html">Conatact us</a>
+					<a href="/viewlistcg?cg=edu">IT教育培训服务</a>
 				</div>
 				<div class="Smenu">
-					<a href="/viewlist">Case</a>
+					<a href="/viewlistcg?cg=job">招聘猎头服务</a>
+				</div>
+				<div class="Smenu">
+					<a href="/viewlistcg?cg=news">新闻中心</a>
+				</div>
+				<div class="Smenu">
+					<a href="/static/partner.html">合作伙伴</a>
+				</div>
+				<div class="Smenu">
+					<a href="/static/contact_us.html">联系我们</a>
+				</div>
 
-				</div>
 			</div>
 
 		</div>
@@ -100,7 +116,6 @@
 						智信创赢
 						<br>
 						<br>
-
 					</div>
 					<div id="textdiv">
 						成都智信创赢科技有限公司是专门从事管理信息系统研发、咨询及服务的高新技术企业，由富有创新力且在企业信息化经验丰富的智慧型高效能团队组成。团队成员均从事企业信息化多年，在企业信息化咨询与设计方面卓有成效。公司秉承“智慧、诚信、创新、共赢”核心文化与价值，立志于打造数字化中国、信息化全球的信息咨询、设计、服务提供商。
@@ -120,44 +135,8 @@
 				成都智信创赢科技有限公司是专门从事管理信息系统研发、咨询及服务的高新技术企业，由富有创新力且在企业信息化经验丰富的智慧型高效能团队组成。团队成员均从事企业信息化多年，在企业信息化咨询与设计方面卓有成效。公司秉承“智慧、诚信、创新、共赢”核心文化与价值，立志于打造数字化中国、信息化全球的信息咨询、设计、服务提供商。
 			</div>
 		</div>
-		<div id="cont" style="background-color: #E2E2E2">
-			<div id="contIn">
-				<div id="listCont">
-					<div id="listTitle" class="listTitle">
-						产品及案例
-					</div>
-					<div id="artlist">
-
-						{{range $key, $val := .jas}}
-						<div id="art{{$val.Id}}" class="art">
-							<div>
-								<div style="padding-bottom: 5px;cursor:pointer;" onclick="expart('artId{{$val.Id}}');$('html,body').animate({scrollTop:$('#art{{$val.Id}}').offset().top},500);">
-									<div id="artpuls{{$val.Id}}" style="display: inline-block;width:12px;text-align:center;">
-										+
-									</div>
-									<div style="display: inline-block;font-size: 18px;">
-										{{$val.Title}}
-									</div>
-								</div>
-
-							</div>
-							<div id="artId{{$val.Id}}" style="display:none;">
-								<div class="artline">
-									<div class="t1"></div>
-									<div class="t2"></div>
-								</div>
-								<div style="padding-left:20px;padding-right:20px;font-size:14px;">
-								{{$val.Text}}
-								</div>
-							</div>
-						</div>
-						{{end}} 
 
 
-					</div>
-				</div>
-			</div>
-		</div>
 		<div id="footdiv">
 			<div id="footcont"><img src="/static/img/logoew26.png" style="height: 26px;display: inline-block;float:right;padding-right:80px"></div>
 		</div>

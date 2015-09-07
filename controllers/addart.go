@@ -2,7 +2,7 @@ package controllers
 
 import (
 	"github.com/astaxie/beego"
-	"jjjBlog/article"
+	"github.com/jjjabc/jjjWebBlog/article"
 	"strconv"
 )
 
@@ -21,6 +21,7 @@ func (this *AddartController) Post() {
 	ja.Text = this.GetString("text")
 	ja.Imgurl = this.GetString("imgurl")
 	ja.IsPublished, _ = strconv.ParseBool(this.GetString("ispublish"))
+	ja.Category = this.GetString("cg")
 	if err := ja.AddArticle(); err != nil {
 		beego.Info("add error")
 		this.Ctx.WriteString("add error")

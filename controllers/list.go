@@ -2,7 +2,7 @@ package controllers
 
 import (
 	"github.com/astaxie/beego"
-	"jjjBlog/article"
+	"github.com/jjjabc/jjjWebBlog/article"
 	"strconv"
 )
 
@@ -19,4 +19,16 @@ func (this *ListController) Get() {
 	beego.Info("jas len:" + strconv.Itoa(len(jas)))
 	this.Data["jas"] = jas
 	this.TplNames = "list.tpl"
+}
+func (this *ListController) GetCg(){
+	category:=this.GetString("cg")
+	jas, err := article.GetPublishedArticlesByCategory(1, 10,category)
+	if err != nil {
+		beego.Info("error!")
+		this.Data["msg"] = "error:" + err.Error()
+	}
+	beego.Info("jas len:" + strconv.Itoa(len(jas)))
+	this.Data["jas"] = jas
+	this.TplNames = "list.tpl"
+
 }

@@ -61,7 +61,6 @@ function winLag() {
 
 function resizefun() {
 	$("#contdiv").css("padding-top", ($("#imgdiv").height() - $("#briefdiv").height()) / 2 + "px");
-
 }
 
 function notSmall() {

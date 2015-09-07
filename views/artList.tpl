@@ -12,6 +12,7 @@
 			{{end}}
 			<input type="button" value="编辑" onclick="edit('{{$ja.Id}}')"/>
 			<input type="button" value="删除" onclick="del('{{$ja.Id}}')"/>
+			<span>属于：{{$ja.Category}}</span>
 		</div>
 	</div>
 	<table>

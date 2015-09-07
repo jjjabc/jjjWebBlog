@@ -1,0 +1,45 @@
+@media (min-width:1900px) { 
+	#topcontent{
+	width:80%;
+	
+	}
+	#toptitle{
+	font-size:64px;
+	}
+	#toptext{
+	font-size:32px;
+	}
+}
+@media (min-width:1200px) and (max-width:1900px) { 
+	#topcontent{
+	width:80%;
+	}
+	#toptitle{
+	font-size:40px;
+	}
+	#toptext{
+	font-size:20px;
+	}
+}
+@media (min-width:700px) and (max-width:1200px) { 
+	#topcontent{
+	width:100%;
+	}
+	#toptitle{
+	font-size:32px;
+	}
+	#toptext{
+	font-size:16px;
+	}
+}
+@media (max-width:700px) { 
+	#topcontent{
+	width:100%;
+	}
+	#toptitle{
+	font-size:32px;
+	}
+	#toptext{
+	font-size:16px;
+	}
+}

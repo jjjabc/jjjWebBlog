@@ -2,32 +2,48 @@ package article
 
 import (
 	"errors"
-	"github.com/garyburd/redigo/redis"
-	"jjjBlog/orm"
 	"strconv"
 	"time"
+	"sort"
 )
 
 type JJJarticle struct {
-	Title         string
-	Id            int
-	Text          string
-	Imgurl        string
-	PublishedTime time.Time
-	IsPublished   bool
+	Title         string    `json:"Title"`
+	Id            int       `json:"Id"`
+	Text          string    `json:"Text"`
+	Imgurl        string    `json:"Imgurl"`        //标题图片
+	PublishedTime time.Time `json:"PublishedTime"` //发布时间
+	IsPublished   bool      `json:"IsPublished"`   //是否发布，ture：已发布，false：未发布
+	Category      string    `json:"Category"`      //所属栏目
+	Priority      int       `json:"Priority"`     //优先级，优先级越高文章显示越前面。Priority小于0：置顶，优先级相同已时间排序为准。默认优先级为0
 }
+type ArticleSortSlice []JJJarticle
 
-func (this *JJJarticle) AddArticle() error {
-	jaId, err := redis.Int(orm.Red.Do("INCR", "art:count"))
-	if err != nil {
-		return err
+func (articles ArticleSortSlice) Len() int {
+	return len(articles)
+}
+func (articles ArticleSortSlice) Less(i, j int) bool {
+	if (articles[i].Priority < 0) {
+		if (articles[j].Priority < 0) {
+			return articles[i].PublishedTime.Before(articles[j].PublishedTime)
+		}else {
+			return false
+		}
 	}
-	this.Id = jaId
-	orm.Red.Send("SET", "art:"+strconv.Itoa(jaId)+":title", this.Title)
-	orm.Red.Send("SET", "art:"+strconv.Itoa(jaId)+":text", this.Text)
-	orm.Red.Send("SET", "art:"+strconv.Itoa(jaId)+":img", this.Imgurl)
-	orm.Red.Send("SADD", "art:IdSets", strconv.Itoa(jaId))
-	return orm.Red.Flush()
+	if (articles[j].Priority < 0) {
+		return true
+	}
+	if (articles[i].Priority == articles[j].Priority) {
+		return articles[i].PublishedTime.Before(articles[j].PublishedTime)
+	}else {
+		return articles[i].Priority < articles[j].Priority
+	}
+}
+func (articles ArticleSortSlice) Swap(i, j int) {
+	articles[i], articles[j] = articles[j], articles[i]
+}
+func (this *JJJarticle) AddArticle() error {
+	return AddArticleToRedis(*this)
 }
 
 //发布文章，redis中使用Sets来保存已发布的文章ID
@@ -36,16 +52,17 @@ func (this *JJJarticle) Publish() error {
 	if this.IsPublished == true {
 		return AlreadyPubErr
 	}
-	if exist, _ := redis.Int(orm.Red.Do("SISMEMBER", "art:publishedSets", strconv.Itoa(this.Id))); exist == 1 {
+	if PublishStatus(this.Id) {
+		this.IsPublished=true
 		return AlreadyPubErr
 	}
 
-	if _, err := orm.Red.Do("SADD", "art:publishedSets", strconv.Itoa(this.Id)); err != nil {
+	if err := AddIdToPublishedSet(this.Id); err != nil {
 		return err
 	}
 
 	this.PublishedTime = time.Now()
-	if _, err := orm.Red.Do("SET", "art:"+strconv.Itoa(this.Id)+"publishedTime", this.PublishedTime.String()); err != nil {
+	if err := SetPublishTime(*this); err != nil {
 		return err
 	}
 	this.IsPublished = true
@@ -53,47 +70,24 @@ func (this *JJJarticle) Publish() error {
 }
 func (this *JJJarticle) UnPublish() error {
 	this.IsPublished = false
-	_, err := orm.Red.Do("SREM", "art:publishedSets", strconv.Itoa(this.Id))
-	return err
+	return DelIdFromPublishedSet(this.Id)
 }
 func (this *JJJarticle) DelArticle() error {
-	orm.Red.Send("DEL", "art:"+strconv.Itoa(this.Id)+":title")
-	orm.Red.Send("DEL", "art:"+strconv.Itoa(this.Id)+":text")
-	orm.Red.Send("DEL", "art:"+strconv.Itoa(this.Id)+":img")
-	orm.Red.Send("SREM", "art:IdSets", strconv.Itoa(this.Id))
-	if err := orm.Red.Flush(); err != nil {
-		return err
-	}
-
-	return this.UnPublish()
+	return DelArticleFromRedis(*this)
 }
 func (this *JJJarticle) UpdataArticle() error {
 	if this.Id == 0 {
 		return errors.New("Id is zero")
 	}
-	jaId := this.Id
-	orm.Red.Send("SET", "art:"+strconv.Itoa(jaId)+":title", this.Title)
-	orm.Red.Send("SET", "art:"+strconv.Itoa(jaId)+":text", this.Text)
-	orm.Red.Send("SET", "art:"+strconv.Itoa(jaId)+":img", this.Imgurl)
-	return orm.Red.Flush()
+	return UpdateArticle(*this)
 }
-func GetArticle(ArticleId int) *JJJarticle {
-	ja := JJJarticle{
-		Id: ArticleId,
-	}
-	var err error
-	ja.Title, err = redis.String(orm.Red.Do("GET", "art:"+strconv.Itoa(ArticleId)+":title"))
-	if err != nil {
-		return nil
-	}
-	ja.Text, _ = redis.String(orm.Red.Do("GET", "art:"+strconv.Itoa(ArticleId)+":text"))
-	ja.Imgurl, _ = redis.String(orm.Red.Do("GET", "art:"+strconv.Itoa(ArticleId)+":img"))
-	ja.IsPublished, _ = redis.Bool(orm.Red.Do("SISMEMBER", "art:publishedSets", strconv.Itoa(ArticleId)))
-	timeString, _ := redis.String(orm.Red.Do("GET", "art:"+strconv.Itoa(ArticleId)+"publishedTime"))
-	dbpubtime, _ := time.Parse(timeString, timeString)
-	ja.PublishedTime = dbpubtime
-	return &ja
+
+
+
+func GetPublishedArticlesByCategory(pageNum int, number int, category string) ([]JJJarticle, error) {
+	return getArticlesByCategory(pageNum, number, true, category)
 }
+
 func GetPublishedArticles(pageNum int, number int) ([]JJJarticle, error) {
 	return getArticles(pageNum, number, true)
 }
@@ -101,17 +95,9 @@ func GetAllArticles() ([]JJJarticle, error) {
 	//2147483647是32位系统中Int的最大值
 	return getArticles(1, 2000000000, false)
 }
-func getArtsId(isPublished bool) ([]string, error) {
-	var Sets string
-	if isPublished {
-		Sets = "art:publishedSets"
-	} else {
-		Sets = "art:IdSets"
-	}
-	return redis.Strings(orm.Red.Do("SMEMBERS", Sets))
-}
-func getArticles(pageNum int, number int, isPublished bool) ([]JJJarticle, error) {
-	all, err := getArtsId(isPublished)
+
+func getArticlesByCategory(pageNum int, number int, isPublished bool, category string) ([]JJJarticle, error) {
+	all, err := GetArtsIdByCategory(isPublished, category)
 	if len(all) == 0 {
 		return make([]JJJarticle, 0), nil
 	}
@@ -122,19 +108,41 @@ func getArticles(pageNum int, number int, isPublished bool) ([]JJJarticle, error
 	start := (pageNum - 1) * number
 	last := len(all) - 1
 
+
 	for i := start; (i < (start + number)) && (i <= last); i++ {
 		aId, _ := strconv.Atoi(all[i])
 		ja := GetArticle(aId)
 		jaSets = append(jaSets, *ja)
 	}
-	return jaSets, nil
+	return ([]JJJarticle)((sort.Reverse(ArticleSortSlice(jaSets))).(ArticleSortSlice)), nil
+}
+
+func getArticles(pageNum int, number int, isPublished bool) ([]JJJarticle, error) {
+	all, err := GetArtsId(isPublished)
+	if len(all) == 0 {
+		return make([]JJJarticle, 0), nil
+	}
+	if err != nil {
+		return nil, errors.New("DB error")
+	}
+	jaSets := make([]JJJarticle, 0)
+	start := (pageNum - 1) * number
+	last := len(all) - 1
+
+
+	for i := start; (i < (start + number)) && (i <= last); i++ {
+		aId, _ := strconv.Atoi(all[i])
+		ja := GetArticle(aId)
+		jaSets = append(jaSets, *ja)
+	}
+	return ([]JJJarticle)((sort.Reverse(ArticleSortSlice(jaSets))).(ArticleSortSlice)), nil
 
 }
 
 //获取相对于当前文章的上一篇和下一篇文章
 //返回：上一篇artId和下一篇artId，如果没有文章了返回0
 func (this *JJJarticle) GetRoundId() (int, int) {
-	all, err := getArtsId(this.IsPublished)
+	all, err := GetArtsId(this.IsPublished)
 	preId := 0
 	nextId := 0
 	if this.Id == 0 {
@@ -155,8 +163,8 @@ func (this *JJJarticle) GetRoundId() (int, int) {
 	}
 
 	//最后一篇文章
-	if thisIdstr == all[len(all)-1] {
-		if preId, err = strconv.Atoi(all[len(all)-2]); err != nil {
+	if thisIdstr == all[len(all) - 1] {
+		if preId, err = strconv.Atoi(all[len(all) - 2]); err != nil {
 			return 0, 0
 		}
 		return preId, 0
@@ -165,8 +173,8 @@ func (this *JJJarticle) GetRoundId() (int, int) {
 	//其余文章(第2篇——倒数第二篇)
 	for i := 1; i < (len(all) - 1); i++ {
 		if thisIdstr == all[i] {
-			preId, err = strconv.Atoi(all[i-1])
-			nextId, err = strconv.Atoi(all[i+1])
+			preId, err = strconv.Atoi(all[i - 1])
+			nextId, err = strconv.Atoi(all[i + 1])
 			if err != nil {
 				return 0, 0
 			}
