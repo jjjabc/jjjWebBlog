@@ -8,7 +8,7 @@ import (
 )
 
 func main() {
-	if err := orm.Init("127.0.0.1", "6379"); err != nil {
+	if err := orm.Init("10.10.71.37", "50320","RPs0uYV1"); err != nil {
 		fmt.Println("orm init error!")
 		return
 	}
