@@ -3,8 +3,8 @@ package main
 import (
 	"fmt"
 	"github.com/astaxie/beego"
-	"jjjBlog/orm"
-	_ "jjjBlog/routers"
+	"github.com/jjjabc/jjjWebBlog/orm"
+	_ "github.com/jjjabc/jjjWebBlog/routers"
 )
 
 func main() {

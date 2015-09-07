@@ -2,7 +2,7 @@ package controllers
 
 import (
 	"encoding/json"
-	"jjjBlog/article"
+	"github.com/jjjabc/jjjWebBlog/article"
 
 	"github.com/astaxie/beego"
 )

@@ -2,7 +2,7 @@ package controllers
 
 import (
 	"github.com/astaxie/beego"
-	"jjjBlog/article"
+	"github.com/jjjabc/jjjWebBlog/article"
 	"strconv"
 )
 
