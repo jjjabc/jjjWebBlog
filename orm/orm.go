@@ -13,3 +13,8 @@ func Init(ip string, port string) error {
 	Red, err = redis.Dial("tcp", ip+":"+port)
 	return err
 }
+func InitPass(ip string, port string,password string) error {
+	var err error
+	Red, err = redis.Dial("tcp", ip+":"+port,redis.DialPassword(password))
+	return err
+}
