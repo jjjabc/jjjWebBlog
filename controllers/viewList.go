@@ -3,7 +3,7 @@ package controllers
 import (
 	"encoding/json"
 	"github.com/astaxie/beego"
-	"jjjBlog/article"
+	"github.com/jjjabc/jjjWebBlog/article"
 	"strconv"
 )
 

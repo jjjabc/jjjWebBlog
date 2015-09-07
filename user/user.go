@@ -3,7 +3,7 @@ package user
 import (
 	"errors"
 	"github.com/garyburd/redigo/redis"
-	"jjjBlog/orm"
+	"github.com/jjjabc/jjjWebBlog/orm"
 	"strconv"
 )
 
