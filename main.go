@@ -11,9 +11,9 @@ import (
 )
 
 func main() {
-	IP := os.Getenv("REDIS_IP")
-	PORT := os.Getenv("REDIS_PORT")
-	PWD := os.Getenv("REDIS_PWD")
+	IP := os.Getenv("REDIS_PORT_6379_TCP_ADDR")
+	PORT := os.Getenv("REDIS_PORT_6379_TCP_PORT")
+	PWD := os.Getenv("REDIS_PASSWORD")
 	if IP == "" {
 		IP = "127.0.0.1"
 	}
