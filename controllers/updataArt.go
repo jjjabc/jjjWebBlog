@@ -29,6 +29,7 @@ func (this *UpdataArtController) Post() {
 	ja.Title = this.GetString("title")
 	ja.Text = this.GetString("text")
 	ja.Imgurl = this.GetString("imgurl")
+	ja.Category = this.GetString("cg")
 	if err := ja.UpdataArticle(); err != nil {
 		beego.Info("Updata error")
 		this.Ctx.WriteString("updata error")
