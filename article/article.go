@@ -114,7 +114,8 @@ func getArticlesByCategory(pageNum int, number int, isPublished bool, category s
 		ja := GetArticle(aId)
 		jaSets = append(jaSets, *ja)
 	}
-	return ([]JJJarticle)((sort.Reverse(ArticleSortSlice(jaSets))).(ArticleSortSlice)), nil
+	sort.Reverse(ArticleSortSlice(jaSets))
+	return jaSets, nil
 }
 
 func getArticles(pageNum int, number int, isPublished bool) ([]JJJarticle, error) {
@@ -135,8 +136,8 @@ func getArticles(pageNum int, number int, isPublished bool) ([]JJJarticle, error
 		ja := GetArticle(aId)
 		jaSets = append(jaSets, *ja)
 	}
-	return ([]JJJarticle)((sort.Reverse(ArticleSortSlice(jaSets))).(ArticleSortSlice)), nil
-
+	sort.Reverse(ArticleSortSlice(jaSets))
+	return jaSets, nil
 }
 
 //获取相对于当前文章的上一篇和下一篇文章
