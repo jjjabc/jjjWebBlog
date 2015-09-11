@@ -17,31 +17,7 @@ type JJJarticle struct {
 	Category      string    `json:"Category"`      //所属栏目
 	Priority      int       `json:"Priority"`     //优先级，优先级越高文章显示越前面。Priority小于0：置顶，优先级相同已时间排序为准。默认优先级为0
 }
-type ArticleSortSlice []JJJarticle
 
-func (articles ArticleSortSlice) Len() int {
-	return len(articles)
-}
-func (articles ArticleSortSlice) Less(i, j int) bool {
-	if (articles[i].Priority < 0) {
-		if (articles[j].Priority < 0) {
-			return articles[i].PublishedTime.Before(articles[j].PublishedTime)
-		}else {
-			return false
-		}
-	}
-	if (articles[j].Priority < 0) {
-		return true
-	}
-	if (articles[i].Priority == articles[j].Priority) {
-		return articles[i].PublishedTime.Before(articles[j].PublishedTime)
-	}else {
-		return articles[i].Priority < articles[j].Priority
-	}
-}
-func (articles ArticleSortSlice) Swap(i, j int) {
-	articles[i], articles[j] = articles[j], articles[i]
-}
 func (this *JJJarticle) AddArticle() error {
 	return AddArticleToRedis(*this)
 }
